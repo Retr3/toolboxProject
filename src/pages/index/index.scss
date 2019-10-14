@@ -1,0 +1,51 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    background: #f8f8f8;
+}
+
+//标题样式暂时弃用
+// .index-header {
+//     display: flex;
+//     align-items: center;
+//     padding: 0.5rem 1rem 0.5rem 1rem;
+//     height: 100rpx;
+// }
+// .index-header__title{
+//     position: relative;
+//     color: #333;
+//     font-size: 1.2rem;
+//     font-weight: 700;
+// }
+
+// .index-header__title::after {
+//     content: "";
+//     position: absolute;
+//     left: 0;
+//     bottom: 0;
+//     display: inline-block;
+//     width: 2.56rem;
+//     height: 2PX;
+//     border-radius: 1PX;
+//     background-color: #6190e8;
+// }
+// .index-header__title .title_text{
+//     margin:0 0 0 20rpx;
+// }
+$heights:70vh;
+.test-h{
+    height:$heights;
+    margin:30rpx;
+}
+.demo-text{
+    border-radius: 3%;
+    height:$heights - 6;
+    margin:20rpx;
+    background: #17ca20
+}
+.index-body{
+    margin: 20rpx 0 20rpx;
+    background: #fff;
+    box-shadow: 0 0.5rem 3rem 0 rgba(0,0,0,.11);
+    min-height:100rpx;
+}

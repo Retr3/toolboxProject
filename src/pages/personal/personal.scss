@@ -1,0 +1,50 @@
+/* miniprogram/pages/me/me.wxss */
+    .container {
+        width: 100vw;
+        height: 100vh;
+        background: #f3f3f3;
+    }
+    .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('https://s0.meituan.net/bs/file/?f=my-canary:deploy/dpmmweb/client/dpmmweb/component/mycenter/img/bg.png');
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: 100% 300rpx;
+    height: 300rpx;
+    overflow: hidden;
+    text-align: center;
+    }
+    .header .avatar{
+    width: 150rpx;
+    height: 150rpx;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    overflow: hidden;
+    margin-bottom: 10px;
+    }
+    .header .name {
+    height: 45rpx;
+    margin-top: 14rpx;
+    font-size: 32rpx;
+    line-height: 45rpx;
+    color: #fff;
+    }
+    .info {
+        margin-top: 20rpx;
+        background: #fff;
+    }
+    .info .btn{
+        border:none;
+        border-radius: 0;
+        padding:0;
+        margin:0;
+        text-align: left;
+        background: #f0f0f000
+     }
+     .info .btn::after{
+        border: none
+      }
+  
