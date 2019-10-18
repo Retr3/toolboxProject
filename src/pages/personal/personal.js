@@ -15,6 +15,7 @@ class Personal extends Component{
         wx.cloud.callFunction({
             name:'login',
             complete:res=>{
+              console.log(res.result);
                 userInfo.openid = res.result.openid
                 this.setState({
                     userInfo

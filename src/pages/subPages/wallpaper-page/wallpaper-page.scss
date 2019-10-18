@@ -1,0 +1,65 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    background: #f8f8f8;
+}
+.wallpaper-style{
+    height:100vh;
+    width:100vw;
+    background-size: 100% 100%;
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
+    -webkit-filter: blur(20px);
+    filter: blur(20px);
+    animation: sharpen 1s both;
+}
+.wallpaperMsg{
+    position: absolute;
+    min-height:5vh;
+    left: 0;
+    bottom: 0;
+    padding: .1rem;
+    display: block;
+    width: 100vw;
+    color: #fff;
+    background: rgba(1, 1, 1, 0.5);
+    .Msg-style{
+       font-size: .8rem;
+       margin-left:10rpx;
+       display:flex;
+       align-items: center;
+    }
+    .calendar-style{
+        font-size: .8rem;
+        margin-left:10rpx;
+        display:flex;
+        align-items: center;
+    }
+}
+.wallpaper-act{
+    display: flex;
+    justify-content: space-around;
+    margin:20rpx;
+    .share-btn{
+        border-radius: 20rpx;
+        display: flex;
+        align-items: center;
+        width:30vw;
+    }
+    .save-btn{
+        border-radius: 20rpx;
+        display: flex;
+        align-items: center;
+        border:1px solid #333333;
+        width:30vw;
+    }
+}
+
+@keyframes sharpen {
+    from {
+      filter: blur(20px);
+    }
+    to {
+      filter: blur(0px);
+    }
+}

@@ -43,6 +43,55 @@ $heights:70vh;
     margin:20rpx;
     background: #17ca20
 }
+.wallpaper-swiper{
+    border-radius: 3%;
+    height:$heights - 6;
+    margin:20rpx;
+    background-size: cover;
+}
+.wallpaper-title{
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width:100%;
+    font-weight:600;
+    font-size: 2rem;
+    margin:20rpx;
+    color:#fff
+}
+.weather-local{
+    position: absolute;
+    top: 3%;
+    left: 5%;
+    width:90%;
+    font-weight:normal;
+    font-size: 1rem;
+    margin:20rpx;
+    color:#fff
+}
+.weather-tem{
+    position: absolute;
+    bottom: 18%;
+    left: 4%;
+    width:90%;
+    font-weight:400;
+    font-size: 4rem;
+    margin:20rpx;
+    color:#fff
+}
+.weather-info{
+    position: absolute;
+    bottom: 10%;
+    left: 5%;
+    width:90%;
+    font-weight:200;
+    font-size: .8rem;
+    margin:20rpx;
+    color:#fff;
+}
+.weather-temInfo{
+    font-size: .8rem;
+}
 .index-body{
     margin: 20rpx 0 20rpx;
     background: #fff;

@@ -1,14 +1,20 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Navigator } from '@tarojs/components'
 import { AtButton,AtList, AtListItem} from 'taro-ui'
-class About extends Component{
+import { observer, inject } from '@tarojs/mobx'
+import './weather-page.scss'
+@inject('weatherStore')
+@observer
+class Weather extends Component{
     config = {
-        navigationBarTitleText: '关于'
+        navigationBarTitleText: '每日天气'
       }
     render(){
+        const {weatherStore} = this.props;
+        console.log(weatherStore);
         return (<View>
-                    about
+                    {weatherStore.weatherInfo.air+""+weatherStore.weatherInfo.city}
                 </View>)
     }
 }
-export default About
+export default Weather

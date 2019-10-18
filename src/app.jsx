@@ -2,8 +2,8 @@ import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/mobx'
 import Index from './pages/index'
 
-import counterStore from './store/counter'
-
+import wallpaperStore from './store/wallpaperStore'
+import weatherStore from './store/weatherStore'
 import './app.scss'
 import './assets/font/iconfont.css'
 // 如果需要在 h5 环境中开启 React Devtools
@@ -16,7 +16,8 @@ wx.cloud.init({
   traceUser: true
 })
 const store = {
-  counterStore
+  wallpaperStore,
+  weatherStore
 }
 
 class App extends Component {
@@ -28,8 +29,8 @@ class App extends Component {
       'pages/subPages/about-page/about-page',
       'pages/subPages/shoppingHistory-page/shoppingHistory-page',
       'pages/subPages/movice-page/movice-page',
-      'pages/subPages/weather-page/weather-page'
-
+      'pages/subPages/weather-page/weather-page',
+      'pages/subPages/wallpaper-page/wallpaper-page'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -50,6 +51,11 @@ class App extends Component {
           "iconPath": "images/user.png",
           "selectedIconPath": "images/user-active.png"
       }]
+    },
+    "permission": {
+      "scope.userLocation": {
+        "desc": "你的位置信息将用于小程序定位功能"
+      }
     }
   }
 
