@@ -1,10 +1,10 @@
-
+import {weatherApiId,weatherApiSecrt} from './untils';
 
 // let timerHour = TimerTask.getHours();
 // let timerMinute = TimerTask.getMinutes();
-const unknows = "11396848";
+const unknows = weatherApiId;
 const db = wx.cloud.database();
-const secrt = "L4q33Ssw";
+const secrt = weatherApiSecrt;
 function getData(cityid,flag){
     return new Promise((resolve, reject)=>{
         wx.request({

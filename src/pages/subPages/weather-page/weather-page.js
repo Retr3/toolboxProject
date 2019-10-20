@@ -12,7 +12,9 @@ class Weather extends Component{
     render(){
         const {weatherStore} = this.props;
         console.log(weatherStore);
-        return (<View>
+        /**用渐变背景色 百度天气的配色*/
+        /**请求v6接口获取3天天气 布局仿qq天气*/
+        return (<View class="container">
                     {weatherStore.weatherInfo.air+""+weatherStore.weatherInfo.city}
                 </View>)
     }

@@ -5,6 +5,7 @@ import { observer, inject } from '@tarojs/mobx'
 import './index.scss'
 import cityCode from '../../untils/cityCode'
 import weatherApi from '../../untils/weather-api'
+import { qqMapKey } from '../../untils/untils';
 
 import '../../assets/images/weather/bingbao.jpg'
 import '../../assets/images/weather/lei.jpg'
@@ -16,12 +17,23 @@ import '../../assets/images/weather/yin.jpg'
 import'../../assets/images/weather/yu.jpg'
 import '../../assets/images/weather/yun.jpg'
 
+import '../../assets/icon/bingbao.png'
+import '../../assets/icon/lei.png'
+import '../../assets/icon/qing.png'
+import '../../assets/icon/shachen.png'
+import '../../assets/icon/wu.png'
+import '../../assets/icon/xue.png'
+import '../../assets/icon/yin.png'
+import '../../assets/icon/yu.png'
+import '../../assets/icon/yun.png'
+
+
 // import QQMapWX from '../../untils/qqmap-wx-jssdk'
 const QQMapWX = require('../../untils/qqmap-wx-jssdk.js');
 
 const db = wx.cloud.database();
 const qqmapsdk = new QQMapWX({
-  key: '2TJBZ-32M3F-A64J4-ND4CX-5G2K6-WTBN7'
+  key: qqMapKey
 });
 @inject('wallpaperStore')
 @inject('weatherStore')
@@ -361,10 +373,12 @@ class Index extends Component {
               <View className='wallpaper-swiper' onClick={this.toWeather} style={weatherStore.weatherInfo.wea_img?{backgroundImage:'url(../../assets/images/weather/'+weatherStore.weatherInfo.wea_img+'.jpg)'}:""}></View>
               <View className="weather-local">{weatherStore.weatherInfo.municipalName+"-"+weatherStore.weatherInfo.city}</View>
               <View className="weather-tem">{weatherStore.weatherInfo.tem+"°"}</View>
+              <View className="weather-icon" style={weatherStore.weatherInfo.wea_img?{backgroundImage:'url(../../assets/icon/'+weatherStore.weatherInfo.wea_img+'.png)'}:""}></View>
               <View className="weather-info">
-                <View><text decode="{{true}}">{weatherStore.weatherInfo.date+`&nbsp;&nbsp;`+weatherStore.weatherInfo.week}</text></View>
-                <View className='icon icon-yun weather-temInfo'>{weatherStore.weatherInfo.wea+" "+weatherStore.weatherInfo.tem2+"°/"+weatherStore.weatherInfo.tem1+"°"}</View>
-                
+                  <View><text decode="{{true}}">{weatherStore.weatherInfo.date+`&nbsp;&nbsp;`+weatherStore.weatherInfo.week}</text></View>
+                  <View className='weather-temInfo'>
+                    {weatherStore.weatherInfo.wea+" "+weatherStore.weatherInfo.tem2+"°/"+weatherStore.weatherInfo.tem1+"°"}
+                  </View>
               </View>  
             </SwiperItem>
             <SwiperItem >

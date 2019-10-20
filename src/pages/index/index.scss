@@ -82,15 +82,28 @@ $heights:70vh;
 .weather-info{
     position: absolute;
     bottom: 10%;
-    left: 5%;
-    width:90%;
+    left: 25%;
+    width:60%;
+    height:10vh;
     font-weight:200;
-    font-size: .8rem;
-    margin:20rpx;
+    font-size: 1rem;
+    margin-left:20rpx;
     color:#fff;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+}
+.weather-icon{
+    position: absolute;
+    bottom: 10%;
+    left: 5%;
+    width:20%;
+    height:10vh;
+    width:20vw;
+    background-size: cover;
 }
 .weather-temInfo{
-    font-size: .8rem;
+    font-size: 1rem;
 }
 .index-body{
     margin: 20rpx 0 20rpx;
