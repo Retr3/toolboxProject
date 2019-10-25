@@ -4,45 +4,41 @@
     background: #f8f8f8;
 }
 
-//标题样式暂时弃用
-// .index-header {
-//     display: flex;
-//     align-items: center;
-//     padding: 0.5rem 1rem 0.5rem 1rem;
-//     height: 100rpx;
-// }
-// .index-header__title{
-//     position: relative;
-//     color: #333;
-//     font-size: 1.2rem;
-//     font-weight: 700;
-// }
-
-// .index-header__title::after {
-//     content: "";
-//     position: absolute;
-//     left: 0;
-//     bottom: 0;
-//     display: inline-block;
-//     width: 2.56rem;
-//     height: 2PX;
-//     border-radius: 1PX;
-//     background-color: #6190e8;
-// }
-// .index-header__title .title_text{
-//     margin:0 0 0 20rpx;
-// }
 $heights:70vh;
 .test-h{
     height:$heights;
     margin:30rpx;
 }
-.demo-text{
+.history-swiper{
     border-radius: 3%;
     height:$heights - 6;
     margin:20rpx;
-    background: #17ca20
+    background-size: 100% 100%;
 }
+.history-title{
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width:100%;
+    font-weight:600;
+    font-size: 2rem;
+    margin:20rpx;
+    color:#fff;
+}
+.history-info{
+    position: absolute;
+    bottom: 10%;
+    height:10vh;
+    margin:20rpx;
+    left: 5%;
+    font-weight:blod;
+    font-size: .9rem;
+    color:#fff;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+}
+
 .wallpaper-swiper{
     border-radius: 3%;
     height:$heights - 6;
@@ -86,24 +82,28 @@ $heights:70vh;
     width:60%;
     height:10vh;
     font-weight:200;
-    font-size: 1rem;
+    font-size: .8rem;
     margin-left:20rpx;
     color:#fff;
     display:flex;
     flex-direction:column;
     justify-content:flex-end;
 }
+.wea-update{
+    font-size: .4rem;
+}
 .weather-icon{
     position: absolute;
     bottom: 10%;
-    left: 5%;
+    margin-left:20rpx;
+    left: 4%;
     width:20%;
     height:10vh;
-    width:20vw;
-    background-size: cover;
+    width:10vh;
+    background-size: 100% 100%;
 }
 .weather-temInfo{
-    font-size: 1rem;
+    font-size: .8rem;
 }
 .index-body{
     margin: 20rpx 0 20rpx;

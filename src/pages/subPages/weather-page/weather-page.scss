@@ -3,3 +3,135 @@
     height: 100vh;
     color:#ffffff;
 }
+.fineDay-background{
+    background: -webkit-gradient(linear,0% 0,0% 100%,from(#50b2fb),to(#a6d4f6))
+}
+
+.overcast-background{
+    background: -webkit-gradient(linear,0% 0,0% 100%,from(#88a9ca),to(#bcd3e3));
+}
+.wea-local{
+    display: flex;
+    margin: 20rpx;
+    justify-content: center;
+}
+.wea-tem{
+    margin:10rpx 20rpx 0rpx 20rpx;
+    font-size: 3.5rem;
+    font-weight:50;
+    display:flex;
+    justify-content: center;
+}
+.wea-tem2{
+    margin:0rpx 20rpx 0rpx 20rpx;
+    font-size:1rem;
+    display:flex;
+    justify-content: center;
+}
+$weaHeight:9vh;
+.wea-wea{
+    height:$weaHeight;
+    margin:0rpx 20rpx 0rpx 20rpx;
+    display: flex;
+    justify-content: center;
+}
+.weather-icon{
+    height:$weaHeight;
+    width:$weaHeight;
+    background-size: 100% 100%;
+}
+.text-wea{
+    margin:0rpx 20rpx 0rpx 20rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size:1.2rem;
+}
+.wea-info{
+    margin:15rpx 20rpx 15rpx 20rpx;
+    font-size:.7rem;
+    display:flex;
+    justify-content: center;
+}
+.nowWea-info{
+    width:100vw;
+    height:28vh;
+}
+
+.selectIndex-body{
+    height:50%;
+    padding:1vw;
+    .selectIndex-body1{
+        height:100%;
+        background: rgba(218, 237, 255, 0.2);
+        .selectIndex-sub{
+            height:40%;
+        }
+        .selectIndex-foot{
+            height:60%;
+        }
+    }
+}
+
+.selectIndex-icon{
+    display: flex;
+    justify-content: center;
+}
+.selectIndex-title{
+    height:100%;
+    font-size:.7rem;
+    color:#043567;
+    display: flex;
+    flex-direction:column;
+    justify-content: space-around;
+    align-items: center;
+    .level-text{
+        color:#187db6;
+        font-size:.7rem;
+    }
+}
+.selectIndex-text{
+    height:100%;
+    font-size:.7rem;
+    padding:6rpx;
+    color: #818181;
+    white-space:normal;
+    word-wrap:break-word;
+    
+}
+
+.wea-recently{
+    margin-top:1vh;
+    width:100vw;
+    height:26vh;
+}
+.recently-body{
+    padding-left:1vw;
+    padding-right:1vw;
+}
+.recently-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:15%;
+    font-size:.7rem;
+    color:#ffffff;
+    white-space:normal;
+    word-wrap:break-word;
+}
+.recently-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:25%;
+}
+.wea-foot{
+    position: absolute;
+    bottom:0vw;
+    width:100vw;
+    display:flex;
+    justify-content: center;
+    font-size:.7rem;
+    font-weight: normal;
+}
+

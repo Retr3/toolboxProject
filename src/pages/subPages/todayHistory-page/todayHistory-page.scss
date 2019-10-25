@@ -1,0 +1,37 @@
+.container {
+    width: 100vw;
+}
+.card-info{
+    margin: 20rpx;
+    border-radius: 12rpx;
+    border: 1PX #d6e4ef solid;
+}
+.card-heard{
+    display: flex;
+    align-items: center;
+    border-bottom: 1PX #d6e4ef solid;
+    padding: 18rpx 24rpx;
+    position: relative;
+    font-size: .8rem;
+}
+.no-pic{
+    background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+    height:30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:#FFFFFF;
+}
+.today-pic{
+    height:30vh;
+    background-size: 100% 100%;
+}
+.card-content{
+    color:#FFFFFF;
+    padding: 24rpx 24rpx;
+}
+.card-tip{
+    margin-top: 18rpx;
+    color: #999;
+    font-size: 24rpx;    
+}

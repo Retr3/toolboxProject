@@ -4,6 +4,8 @@ import Index from './pages/index'
 
 import wallpaperStore from './store/wallpaperStore'
 import weatherStore from './store/weatherStore'
+import todayHistoryStore from './store/todayHistoryStore'
+import movieStore from './store/movieStore'
 import './app.scss'
 import './assets/font/iconfont.css'
 // 如果需要在 h5 环境中开启 React Devtools
@@ -17,7 +19,9 @@ wx.cloud.init({
 })
 const store = {
   wallpaperStore,
-  weatherStore
+  weatherStore,
+  todayHistoryStore,
+  movieStore
 }
 
 class App extends Component {
@@ -25,12 +29,46 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
-      'pages/personal/personal',
-      'pages/subPages/about-page/about-page',
-      'pages/subPages/shoppingHistory-page/shoppingHistory-page',
-      'pages/subPages/movice-page/movice-page',
-      'pages/subPages/weather-page/weather-page',
-      'pages/subPages/wallpaper-page/wallpaper-page'
+      'pages/personal/personal'
+    ],
+    "subPackages": [
+      {
+        "root": "pages/subPages/wallpaper-page/",
+        "pages": [
+          'wallpaper-page'
+        ]
+      },
+      {
+        "root": "pages/subPages/weather-page/",
+        "pages": [
+          'weather-page',
+        ]
+      },
+      {
+        "root": "pages/subPages/todayHistory-page/",
+        "pages": [
+          'todayHistory-page',
+        ]
+      },
+      {
+        "root": "pages/subPages/movie-page/",
+        "pages": [
+          'movie-page',
+          'movie-detail'
+        ]
+      },
+      {
+        "root": "pages/subPages/shoppingHistory-page",
+        "pages": [
+          'shoppingHistory-page'
+        ]
+      },
+      {
+        "root": "pages/subPages/about-page",
+        "pages": [
+          'about-page'
+        ]
+      }
     ],
     window: {
       backgroundTextStyle: 'light',

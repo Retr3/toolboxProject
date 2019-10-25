@@ -29,15 +29,15 @@ function getData(cityid,flag){
     )
 }
 
-function weatherApi(cityid){
+function weatherApi(cityid,cityflag){
 
-    let lastCity = wx.getStorageSync('cityid');
+    //let lastCity = wx.getStorageSync('cityid');
     let lastUpdate = wx.getStorageSync('updatetime');
-
-    if(!(lastCity === cityid) || !(lastCity)){
-        console.log("第一次");
+    if(cityflag==='new'){
+        console.log("数据库第一次录入该地点");
         return getData(cityid,'1')
     }
+    
     let nextUpdate = new Date(lastUpdate).getTime()+1000*60*60*3;
     let nowDate = new Date().getTime();
     if(nowDate<nextUpdate){
@@ -52,4 +52,27 @@ function weatherApi(cityid){
     }
 }   
 
-export default  weatherApi
+function divSevenDays(cityid){
+    
+    return new Promise((resolve, reject)=>{
+        wx.request({
+            url: `https://www.tianqiapi.com/api/`,
+            data: {
+                version: 'v1',
+                cityid: cityid,
+                appid:unknows,
+                appsecret:secrt
+            },
+            success:res=>{
+                console.log(res);
+                resolve(res.data);
+            },
+            fail:err=>{
+                reject(err);
+            }
+        })
+    }
+        //resolve
+    )
+}
+export  {weatherApi,divSevenDays}
