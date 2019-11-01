@@ -28,9 +28,22 @@ $heights:33vh;
     left: 15rpx;
     width: 50rpx;
     height: 50rpx;
-    border-radius: 3% 3% 3% 6%;
+    border-radius: 6% 6% 6% 6%;
     background-color: rgba(135, 135, 140, 0.8);
     color:#ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.movie-isstar{
+    position: absolute;
+    top: 15rpx;
+    left: 15rpx;
+    width: 50rpx;
+    height: 50rpx;
+    border-radius: 6% 6% 6% 6%;
+    background-color: rgba(135, 135, 140, 0.8);
+    color:#ffaf33;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,20 +81,11 @@ $heights:33vh;
     height:$heights;
     margin:30rpx;
 }
-.collection-title{
-    font-size:1rem;
-    background: #ffffff;
-    padding-left: 20rpx;
-    padding-right: 20rpx;
-    height:5vh;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+$collectionheight:35vh;
 .collection-view{
-    height:37vh;
+    height:$collectionheight;
     background: #f8f8f8;
-    
+    margin:10rpx 30rpx 10rpx 30rpx;
 }
 .no-collection{
     display: flex;
@@ -90,8 +94,44 @@ $heights:33vh;
     align-items: center;
     width:100%;
     height:100%;
+    color:#78A4FA;
     .no-text{
         margin:20rpx;
         font-weight: 100;
     }
 }
+.collection-info{
+    border-radius: 3%;
+    height:$collectionheight - 13vh;
+    margin:15rpx;
+    background:#87878c;
+    background-size: 100% 100%;
+}
+.collection-title{
+    color: #222;
+    margin-bottom: 5rpx;
+    margin-left: 15rpx;
+    margin-right: 15rpx;
+    -webkit-text-emphasis: none;
+    text-emphasis: none;
+    font-size: 1rem;
+    text-align: center;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.collection-tip{
+    color:#999;
+    margin-left:15rpx;
+    margin-right:15rpx;
+    font-size:.8rem;
+    text-align: center;
+    -webkit-text-emphasis: none;
+    text-emphasis: none;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+    

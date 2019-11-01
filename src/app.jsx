@@ -1,11 +1,13 @@
 import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/mobx'
+import '@tarojs/async-await'
 import Index from './pages/index'
 
 import wallpaperStore from './store/wallpaperStore'
 import weatherStore from './store/weatherStore'
 import todayHistoryStore from './store/todayHistoryStore'
 import movieStore from './store/movieStore'
+
 import './app.scss'
 import './assets/font/iconfont.css'
 // 如果需要在 h5 环境中开启 React Devtools
@@ -54,7 +56,8 @@ class App extends Component {
         "root": "pages/subPages/movie-page/",
         "pages": [
           'movie-page',
-          'movie-detail'
+          'movie-detail',
+          'movie-collection'
         ]
       },
       {

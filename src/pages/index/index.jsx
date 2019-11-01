@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text, Swiper, SwiperItem } from '@tarojs/components'
-import { AtIcon, AtGrid, AtToast,AtButton } from 'taro-ui'
+import { AtGrid, AtToast, AtButton, AtModal, AtModalHeader, AtModalContent, AtModalAction } from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
 import './index.scss'
 import {weatherApi} from '../../untils/weather-api'
@@ -38,7 +38,9 @@ class Index extends Component {
     newImgName:'',
     hisPicUrl:'',
     hisTitle:[],
-    limiter:0
+    limiter:0,
+    loginModal:false,//登录模态框
+    loginSuc:false //登录成功轻提醒
   }
   
   componentWillMount () {
@@ -150,18 +152,26 @@ class Index extends Component {
           })
           return 
       case 'movie':
-          Taro.navigateTo({
-            url: '../subPages/movie-page/movie-page',
-            success: function(res) {
-                console.log(res);
-            },
-            fail:function(err){
-              console.log(err);
-              that.setState({
-                errorToast:true
-              })
-            }
-          })
+          let userinfoStorage = Taro.getStorageSync('userInfo');
+          if(userinfoStorage.openid){
+            Taro.navigateTo({
+              url: '../subPages/movie-page/movie-page',
+              success: function(res) {
+                  console.log(res);
+              },
+              fail:function(err){
+                console.log(err);
+                that.setState({
+                  errorToast:true
+                })
+              }
+            })
+          }else{
+            this.setState({
+              loginModal:true
+            })
+          }
+          
           return
       case 'search':
           this.setState({
@@ -387,7 +397,7 @@ class Index extends Component {
      day:nowDate
    }).orderBy('e_id', 'asc').get({
      success:res=>{
-       if(res.data){
+       if(res.data.length>0){
          let picList = res.data.filter(item=>item.picUrl);
          this.setState({
            hisPicUrl:picList[0].picUrl,
@@ -416,6 +426,50 @@ class Index extends Component {
     return wx.cloud.getTempFileURL({
       fileList:[fileid],
       maxAge: 60 * 60 * 48})
+  }
+  onGetUserInfo=(e)=>{
+    let that = this;
+    let userInfo = e.detail.userInfo;
+    wx.cloud.callFunction({
+        name:'login',
+        success:res=>{
+          console.log(res.result);
+            userInfo.openid = res.result.openid
+            this.setState({
+                userInfo
+            },()=>{
+                Taro.setStorageSync("userInfo",userInfo);
+                that.setState({
+                  loginSuc:true,
+                  loginModal:false
+                },()=>{
+                  Taro.navigateTo({
+                    url: '../subPages/movie-page/movie-page',
+                    success: function(res) {
+                        console.log(res);
+                        that.setState({
+                          loginSuc:false
+                        })
+                    },
+                    fail:function(err){
+                      console.log(err);
+                      that.setState({
+                        errorToast:true
+                      })
+                    }
+                  })
+                })
+            })
+
+        }
+
+    })
+  }
+  //
+  loginCancel = ()=>{
+    this.setState({
+      loginModal:false
+    })
   }
   render () {
     const { wallpaperStore,weatherStore } = this.props;
@@ -523,6 +577,22 @@ class Index extends Component {
                 text={`啊哦,出错了\n  o(>_<)o`}
                 icon="close-circle" >
         </AtToast>
+        <AtToast isOpened={this.state.loginSuc} 
+                duration={1000}
+                text="登录成功" 
+                icon="check" >
+        </AtToast>
+        <AtModal isOpened={this.state.loginModal} closeOnClickOverlay={false}>
+          <AtModalHeader>提示</AtModalHeader>
+          <AtModalContent className="login-model">
+            <View>该功能需要登录哦</View>
+          </AtModalContent>
+          <AtModalAction> 
+            <Button onClick={this.loginCancel}>不了,谢谢</Button> 
+            <Button  onGetUserInfo={this.onGetUserInfo}
+                     open-type="getUserInfo">一键登录</Button> 
+          </AtModalAction>
+        </AtModal>
       </View>
     )
   }

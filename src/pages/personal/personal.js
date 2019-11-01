@@ -8,7 +8,7 @@ class Personal extends Component{
         navigationBarTitleText: '个人中心'
       }
       state={
-        userInfo:Taro.getStorageInfoSync('userInfo') || {}
+        userInfo:Taro.getStorageSync('userInfo') || {}
       }
       onGetUserInfo=(e)=>{
         let userInfo = e.detail.userInfo;
