@@ -134,4 +134,37 @@ $collectionheight:35vh;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-    
+.list-loading{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    height:$heights;
+    margin:30rpx;
+}
+.icon-loading{
+    animation: loading 1s infinite;
+    font-size:3rem;
+}
+.loading-title{
+    font-size: 1rem;
+    margin:20rpx 0 20rpx 0;
+    color:#78A4FA
+}
+@keyframes loading {
+	0% {
+	transform:rotate(0deg);
+    }
+    25% {
+        transform:rotate(90deg);
+    }
+    50% {
+        transform:rotate(180deg);
+    }
+    75% {
+        transform:rotate(270deg);
+    }
+    100% {
+        transform:rotate(360deg);
+    }
+}

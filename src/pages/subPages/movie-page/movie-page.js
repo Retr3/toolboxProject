@@ -390,6 +390,8 @@ class WatchMovie extends Component{
                             onClick={this.tabHandel}>
                             <AtTabsPane current={this.state.current} index={0} >
                                 <View>
+                                    {
+                                        this.state.releaseMovieList.length>0?
                                     <Swiper
                                         className='release-list'
                                         displayMultipleItems={3}
@@ -408,14 +410,18 @@ class WatchMovie extends Component{
                                                                 <View className="release-title">{item.nm}</View>
                                                                 <View className="release-tip">{item.rt}</View>
                                                             </SwiperItem>
-                                                }):""
+                                                }):''
                                             }
-                                    </Swiper>
+                                    </Swiper>:<View className="list-loading">
+                                        <View className="at-icon at-icon-loading-3 icon-loading"></View>
+                                        <View className="loading-title">精彩马上呈现</View>
+                                    </View>
+                                    }
                                 </View>
                             </AtTabsPane>
                             <AtTabsPane current={this.state.current} index={1}>
                                 <View>
-                                    <Swiper
+                                    {this.state.comingMovieList.length>0?<Swiper
                                         className='coming-list'
                                         displayMultipleItems={3}
                                         vertical={false}
@@ -435,7 +441,10 @@ class WatchMovie extends Component{
                                                         </SwiperItem>
                                             }):''
                                         }
-                                    </Swiper>
+                                    </Swiper>:<View className="list-loading">
+                                        <View className="at-icon at-icon-loading-3 icon-loading"></View>
+                                        <View className="loading-title">精彩马上呈现</View>
+                                    </View>}
                                 </View>
                             </AtTabsPane>
                         </AtTabs>

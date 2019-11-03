@@ -239,7 +239,7 @@ class MovieCollection extends Component{
             }
         ];
         return (<View className="container">
-                    {false?this.state.collectionList.map((item, index) => (
+                    {this.state.collectionList?this.state.collectionList.map((item, index) => (
                         <AtSwipeAction
                         key={item._id}
                         autoClose={true}
