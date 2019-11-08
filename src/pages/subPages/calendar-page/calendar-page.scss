@@ -1,0 +1,91 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    background: #f8f8f8;
+    background-size: 100% 100%;
+}
+.calendar-head{
+    color:#ffffff;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    text-align: center;
+    height:43vh;
+    padding: 30rpx;
+    .calendar-info{
+        font-weight: 300;
+        font-size:1.2rem;
+        margin:20rpx;
+    }
+    .calendar-date{
+        font-size: 6rem;
+        font-weight: 700;
+        color:#CC0000;
+    }
+}
+    .calendar-baiji{
+        color:#3626ad;
+        padding:10rpx;
+        margin:20rpx;
+        //border:4rpx solid #cccccc;
+        display: flex;
+        flex-flow: column;
+        justify-content: space-around;
+        .baiji-info{
+            margin:10rpx;
+            font-weight:500;
+        }
+    }
+.calendar-content{
+    padding:30rpx 10rpx;
+    .calendar-icon{
+        justify-content: center;
+        align-items: center;
+    }
+}
+.calendar-subinfo{
+    height:20vh;
+    align-content: flex-start;
+    .calendar-text{
+        text-align: center;
+        color:#ffffff;
+        padding:10rpx 0 10rpx 0;
+        line-height: 1rem;
+        font-size:.9rem;
+    }
+}
+.foot-info{
+    height:20vh;
+    align-content: flex-start;
+    .foot-title{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding:15rpx;
+        font-size:1.5rem;
+        font-weight: bold;
+        color:#CC0000;
+    }
+    .foot-title2{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding:15rpx;
+        font-size:1.5rem;
+        font-weight: bold;
+        color:#333333;
+    }
+    .foot-text{
+        text-align: center;
+        color:#ffffff;
+        line-height: 1rem;
+        padding:10rpx 0 10rpx 0;
+        font-size:1rem;
+    }
+}
+.calendar-border-left{
+    border-left: 4rpx solid #CCC
+}
+.calendar-border-right{
+    border-right: 4rpx solid #CCC
+}

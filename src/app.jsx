@@ -7,6 +7,7 @@ import wallpaperStore from './store/wallpaperStore'
 import weatherStore from './store/weatherStore'
 import todayHistoryStore from './store/todayHistoryStore'
 import movieStore from './store/movieStore'
+import poemStore from './store/poemStore'
 
 import './app.scss'
 import './assets/font/iconfont.css'
@@ -23,7 +24,8 @@ const store = {
   wallpaperStore,
   weatherStore,
   todayHistoryStore,
-  movieStore
+  movieStore,
+  poemStore
 }
 
 class App extends Component {
@@ -64,6 +66,31 @@ class App extends Component {
         "root": "pages/subPages/shoppingHistory-page",
         "pages": [
           'shoppingHistory-page'
+        ]
+      },
+      {
+        "root": "pages/subPages/calendar-page",
+        "pages": [
+          'calendar-page'
+        ]
+      },
+      {
+        "root": "pages/subPages/exchangeRate-page",
+        "pages": [
+          'exchangeRate-page'
+        ]
+      },
+      {
+        "root": "pages/subPages/poem-page",
+        "pages": [
+          'poem-page',
+          'poem-detail'
+        ]
+      },
+      {
+        "root": "pages/subPages/help-page",
+        "pages": [
+          'help-page'
         ]
       },
       {

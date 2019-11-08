@@ -14,6 +14,7 @@
 }
 .text-body{
     margin: 0 0 20rpx;
+    padding:30rpx;
     background: #fff;
     
     box-shadow: 0 0.5rem 3rem 0 rgba(0,0,0,.11);
@@ -39,6 +40,37 @@
 }
 .price-info{
     margin:30rpx,0,0,0;
+    border-top: 2rpx solid #d6e4ef;
+    .item{
+        padding: 24rpx 24rpx;
+        position: relative;
+        box-sizing: border-box;
+        color: #333;
+        font-size: 32rpx;
+        line-height: 1.5;
+        transition: background-color 0.3s;
+        position: relative;
+        border-bottom: 2rpx solid #d6e4ef;
+    }
+    .item:active
+    {
+        background-color:#e5e5e5;
+    }
+    .now-price{
+        display: flex;
+        justify-content: space-between;
+    }
+    .price-red{
+        color:#ef4238;
+        font-weight: bold;
+    }
+    .price-gray{
+        color:#999;
+    }
+    .price-blue{
+        color:#6190e8;
+        font-weight: bold;
+    }
 }
 .chart-body{
     margin: 0 0 20rpx;
@@ -47,9 +79,10 @@
     box-shadow: 0 0.5rem 3rem 0 rgba(0,0,0,.11);
 }
 .charts-title{
+    padding:20rpx;
     text-align: center;
     font-size: 1.2rem;
-    color:#333333;
+    color:#78A4FA;
 }
 .noGoods-alert{
     text-align: center;
@@ -61,5 +94,79 @@
     align-items: center;
 }
 .msg{
-    height:100rpx;
+    height:200rpx;
+}
+.list-noGoodsMsg{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    height:200rpx;
+    margin:10rpx;
+    .no-icon{
+        margin:20rpx;
+        font-size:3rem;
+        color:#78A4FA;
+    }
+    .no-text{
+        margin:20rpx 40rpx;
+        font-size:1rem;
+        color:#999;
+    }
+}
+.icon-loading{
+    animation: loading 1s infinite;
+    font-size:3rem;
+    color:#78A4FA;
+}
+.loading-title{
+    font-size: 1rem;
+    margin:20rpx 0 20rpx 0;
+    color:#78A4FA
+}
+@keyframes loading {
+	0% {
+	transform:rotate(0deg);
+    }
+    25% {
+        transform:rotate(90deg);
+    }
+    50% {
+        transform:rotate(180deg);
+    }
+    75% {
+        transform:rotate(270deg);
+    }
+    100% {
+        transform:rotate(360deg);
+    }
+}
+.clipboard-curtain{
+    border-radius: 30rpx;
+    padding:20rpx;
+    background: #f3f3f3;
+    height:25vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    .clipboard-icon{
+        font-size:3rem;
+        margin:20rpx;
+        color:#78A4FA;
+    }
+    .clipboard-text{
+        font-size:1rem;
+        color:#78A4FA;
+        margin:20rpx 0;
+    }
+    .clipboard-view{
+        margin:20rpx;
+    }
+}
+.clipboard-btn{
+    height:5vh;
+    font-size:1rem;
+    display: flex;
+    align-items: center;
 }

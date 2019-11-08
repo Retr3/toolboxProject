@@ -30,8 +30,9 @@ class Personal extends Component{
       onShareAppMessage=()=>{
         var that = this;
         return {
-          title: '',
-          path: '/pages/me/me',
+          title: '这有一个野生的小程序',
+          imageUrl:'https://7a78-zxytest-37pbw-1259522293.tcb.qcloud.la/other_img/about-bg2.jpg',
+          path: '/pages/index/index',
           success: function (res) {
             // 转发成功
      
@@ -44,7 +45,7 @@ class Personal extends Component{
       }
       toMyCollection =()=>{
         Taro.navigateTo({
-            url: '../subPages/my-collection/my-collection',
+            url: '../subPages/help-page/help-page',
             success: function(res) {
                 console.log(res);
             }
@@ -80,11 +81,6 @@ class Personal extends Component{
            
              <AtList className="info">
                  
-                    <AtListItem  
-                        title='我的收藏' 
-                        arrow='right' 
-                        onClick={this.toMyCollection}
-                        iconInfo={{ size:25, prefixClass:'icon', value: 'star', }}/>
                     <Button className='btn' openType='share'>
                         <AtListItem  
                             title='分享给朋友' 
@@ -93,10 +89,15 @@ class Personal extends Component{
                     </Button>
                     <Button className='btn' openType='contact'>
                         <AtListItem  
-                            title='联系客服' 
+                            title='客服反馈' 
                             arrow='right' 
                             iconInfo={{ size:25, prefixClass:'icon', value: 'service', }}/>
                     </Button>
+                    <AtListItem  
+                        title='帮助' 
+                        arrow='right' 
+                        onClick={this.toMyCollection}
+                        iconInfo={{ size:25, prefixClass:'icon', value: 'help'}}/>
                     <AtListItem  
                         title='关于' 
                         arrow='right' 

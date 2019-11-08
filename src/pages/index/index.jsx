@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text, Swiper, SwiperItem } from '@tarojs/components'
-import { AtGrid, AtToast, AtButton, AtModal, AtModalHeader, AtModalContent, AtModalAction } from 'taro-ui'
+import { AtGrid, AtToast, AtIcon, AtModal, AtModalHeader, AtModalContent, AtModalAction } from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
 import './index.scss'
 import {weatherApi} from '../../untils/weather-api'
@@ -40,7 +40,8 @@ class Index extends Component {
     hisTitle:[],
     limiter:0,
     loginModal:false,//登录模态框
-    loginSuc:false //登录成功轻提醒
+    loginSuc:false, //登录成功轻提醒
+    weatherLoad:false//天气加载
   }
   
   componentWillMount () {
@@ -54,7 +55,7 @@ class Index extends Component {
   }
 
   componentWillReact () {
-    console.log('componentWillReact')
+    
   }
 
   componentWillUnmount () { }
@@ -140,9 +141,7 @@ class Index extends Component {
       case 'chart':
           Taro.navigateTo({
             url: '../subPages/shoppingHistory-page/shoppingHistory-page',
-            success: function(res) {
-                console.log(res);
-            },
+            
             fail:function(err){
               console.log(err);
               that.setState({
@@ -156,9 +155,7 @@ class Index extends Component {
           if(userinfoStorage.openid){
             Taro.navigateTo({
               url: '../subPages/movie-page/movie-page',
-              success: function(res) {
-                  console.log(res);
-              },
+              
               fail:function(err){
                 console.log(err);
                 that.setState({
@@ -173,16 +170,32 @@ class Index extends Component {
           }
           
           return
-      case 'search':
-          this.setState({
-            toastOpen:true
+      case 'calendar':
+          Taro.navigateTo({
+            url: '../subPages/calendar-page/calendar-page',
+            success: function(res) {},
+            fail:err=>{
+              console.log(err);
+            }
           })
-          // Taro.navigateTo({
-          //   url: '../../subPages/my-collection/my-collection',
-          //   success: function(res) {
-          //       console.log(res);
-          //   }
-          // })
+          return
+      case 'exchange-rate':
+        Taro.navigateTo({
+          url: '../subPages/exchangeRate-page/exchangeRate-page',
+          success: function(res) {},
+          fail:err=>{
+            console.log(err);
+          }
+        })
+          return
+      case 'search':
+        Taro.navigateTo({
+          url: '../subPages/poem-page/poem-page',
+          success: function(res) {},
+          fail:err=>{
+            console.log(err);
+          }
+        })
           return
       default : 
       this.setState({
@@ -471,6 +484,22 @@ class Index extends Component {
       loginModal:false
     })
   }
+  //关闭动作
+  ontoastClose = ()=>{
+    this.setState({
+      toastOpen:false
+    })
+  }
+  onerrorClose = ()=>{
+    this.setState({
+      errorToast:false
+    })
+  }
+  onLoginClose = ()=>{
+    this.setState({
+      loginSuc:false
+    })
+  }
   render () {
     const { wallpaperStore,weatherStore } = this.props;
     return (
@@ -484,27 +513,44 @@ class Index extends Component {
           interval={3000}
           circular={true}
           indicatorDots={true}
-          autoplay={true}>
+          autoplay={false}>
              <SwiperItem>
-              <View className='wallpaper-swiper' onClick={this.toWeather} style={weatherStore.weatherInfo.wea_img?{backgroundImage:'url('+weatherImgUrl+weatherStore.weatherInfo.wea_img+'.jpg)'}:""}></View>
-              <View className="weather-local">{weatherStore.weatherInfo.municipalName?weatherStore.weatherInfo.municipalName+"-"+weatherStore.weatherInfo.city:''}</View>
-              <View className="weather-tem">{weatherStore.weatherInfo.tem?weatherStore.weatherInfo.tem+"°":''}</View>
-              <View className="weather-icon" style={weatherStore.weatherInfo.wea_img?{backgroundImage:'url('+weatherIconUrl+weatherStore.weatherInfo.wea_img+'.png)'}:""}></View>
-              <View className="weather-info">
-                  <View className="wea-update"><text decode="{{true}}">{weatherStore.weatherInfo.update_time?weatherStore.weatherInfo.update_time+`&nbsp;更新`:''}</text></View>
-                  <View><text decode="{{true}}">{weatherStore.weatherInfo.date?weatherStore.weatherInfo.date+`&nbsp;&nbsp;`+weatherStore.weatherInfo.week:''}</text></View>
-                  <View className='weather-temInfo'>
-                    {weatherStore.weatherInfo.wea?weatherStore.weatherInfo.wea+" "+weatherStore.weatherInfo.tem2+"°/"+weatherStore.weatherInfo.tem1+"°":''}
+               {
+                 weatherStore.weatherInfo?
+                 <View>
+                    <View className='wallpaper-swiper' style={weatherStore.weatherInfo.wea_img?{backgroundImage:'url('+weatherImgUrl+weatherStore.weatherInfo.wea_img+'.jpg)'}:""}></View>
+                    <View className='weather-bg' onClick={this.toWeather} ></View>
+                    <View className="weather-local">{weatherStore.weatherInfo.municipalName?weatherStore.weatherInfo.municipalName+"-"+weatherStore.weatherInfo.city:''}</View>
+                    <View className="weather-tem">{weatherStore.weatherInfo.tem?weatherStore.weatherInfo.tem+"°":''}</View>
+                    <View className="weather-icon" style={weatherStore.weatherInfo.wea_img?{backgroundImage:'url('+weatherIconUrl+weatherStore.weatherInfo.wea_img+'.png)'}:""}></View>
+                    <View className="weather-info">
+                        <View className="wea-update"><text decode="{{true}}">{weatherStore.weatherInfo.update_time?weatherStore.weatherInfo.update_time+`&nbsp;更新`:''}</text></View>
+                        <View><text decode="{{true}}">{weatherStore.weatherInfo.date?weatherStore.weatherInfo.date+`&nbsp;&nbsp;`+weatherStore.weatherInfo.week:''}</text></View>
+                        <View className='weather-temInfo'>
+                          {weatherStore.weatherInfo.wea?weatherStore.weatherInfo.wea+" "+weatherStore.weatherInfo.tem2+"°/"+weatherStore.weatherInfo.tem1+"°":''}
+                        </View>
+                    </View>
                   </View>
-              </View>  
+                 :
+                  <View className='wallpaper-positioning'>
+                    <View><AtIcon className="icon-position" prefixClass='icon' value='position-2' size='50' color='#4395ff'></AtIcon></View>
+                    <View className="positon-text">定位中,请稍等</View>
+                  </View>
+               }
+               
+
+               
+               
+
             </SwiperItem>
             <SwiperItem >
-              <View className='history-swiper' style={{backgroundImage:'url('+this.state.hisPicUrl+')'}} onClick={this.toTodayHistory}></View>
-              <View className='history-title'>历史上的今天</View>
+              <View className='history-swiper' style={{backgroundImage:'url('+this.state.hisPicUrl+')'}}></View>
+              <View className='history-bg' onClick={this.toTodayHistory} ></View>
+              <View className='history-title'>往日回忆</View>
               <View className='history-info'>
-                <View className="at-icon at-icon-clock"><text decode="{{true}}">{'&nbsp;'+this.state.hisTitle[0]}</text></View>
-                <View className="at-icon at-icon-clock"><text decode="{{true}}">{'&nbsp;'+this.state.hisTitle[1]}</text></View>
-                <View className="at-icon at-icon-clock"><text decode="{{true}}">{'&nbsp;'+this.state.hisTitle[2]}</text></View> 
+                <View className="at-icon at-icon-clock history-text"><text decode="{{true}}">{'&nbsp;'+this.state.hisTitle[0]}</text></View>
+                <View className="at-icon at-icon-clock history-text"><text decode="{{true}}">{'&nbsp;'+this.state.hisTitle[1]}</text></View>
+                <View className="at-icon at-icon-clock history-text"><text decode="{{true}}">{'&nbsp;'+this.state.hisTitle[2]}</text></View> 
               </View>
             </SwiperItem>
             <SwiperItem >
@@ -523,7 +569,7 @@ class Index extends Component {
                   prefixClass:'icon',
                   size: 30,
                   value:'chart',
-                  color:'#EE7000'
+                  color:'#0e78af'
                 },
                 value: '网购历史\n价格查询'
               },
@@ -538,22 +584,28 @@ class Index extends Component {
               },
               {
                 iconInfo:{
-                  prefixClass:'icon',
-                  size: 30,
-                  value:'search',
-                  color:'#0e78af'
-                },
-                value: '藏头诗'
-              },
-              {
-                iconInfo:{
                   size: 30,
                   value:'calendar',
                   color:'#69b8f0'
                 },
                 value: '老黄历'
-              },
-              {
+              },{
+                iconInfo:{
+                  prefixClass:'icon',
+                  size: 30,
+                  value:'exchange-rate',
+                  color:'#a71e32'
+                },
+                value: '汇率'
+              },{
+                iconInfo:{
+                  prefixClass:'icon',
+                  size: 30,
+                  value:'search',
+                  color:'#EE7000'
+                },
+                value: '作首诗'
+              },{
                 iconInfo:{
                   prefixClass:'icon',
                   size: 30,
@@ -567,18 +619,21 @@ class Index extends Component {
           onClick={this.toToolPage}
           />
         </View>
-        <AtToast isOpened={this.state.toastOpen} 
-                duration={2000}
+        <AtToast isOpened={this.state.toastOpen}
+                onClose ={this.ontoastClose}
+                duration={1000}
                 text="敬请期待" 
                 icon="heart" >
         </AtToast>
         <AtToast isOpened={this.state.errorToast} 
-                duration={2000}
+                onClose ={this.onerrorClose}
+                duration={1000}
                 text={`啊哦,出错了\n  o(>_<)o`}
                 icon="close-circle" >
         </AtToast>
         <AtToast isOpened={this.state.loginSuc} 
                 duration={1000}
+                onClose ={this.onLoginClose}
                 text="登录成功" 
                 icon="check" >
         </AtToast>

@@ -376,6 +376,7 @@ class WatchMovie extends Component{
                             name='getMovieName'
                             title=''
                             placeholder='搜索'
+                            maxLength={99}
                             value={this.state.movieName}
                             onChange={this.handelChange.bind(this)}
                             onActionClick={()=>this.getMovieDetail(this.state.movieName)}

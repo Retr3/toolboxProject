@@ -1,6 +1,6 @@
 import { observable } from 'mobx'
 const weatherStore = observable({
-  weatherInfo: {},
+  weatherInfo: "",
   getWeatherInfo(info){
     this.weatherInfo = info;
   }

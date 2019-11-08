@@ -1,17 +1,27 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text,Navigator } from '@tarojs/components'
-import { AtList, AtListItem, AtModal, AtSearchBar,AtModalHeader, AtModalContent, AtModalAction } from 'taro-ui'
+import { View, Button, Text } from '@tarojs/components'
+import { AtCurtain, AtSearchBar,AtToast, AtModal, AtButton} from 'taro-ui'
 import Chart from 'taro-echarts'
 
 
 import './shoppingHistory-page.scss'
-
+//电商地址列表头
+const onlineRetailerList = [
+    'https://m.tb.cn',
+    'https://item.m.jd.com',
+    'https://detail.tmall.com',
+    'https://item.taobao.com/',
+    'https://re.jd.com',
+    'https://item.jd.com',
+    'https://mobile.yangkeduo.com/'
+]
 class History extends Component{
     config = {
         navigationBarTitleText: '网购历史价格查询'
       }
       state={
           goodsLink:'',
+          clipboardLink:'',
           hasGoodsInfo:false,
           alertNoGoods:false,
           minPrice:0,
@@ -25,9 +35,29 @@ class History extends Component{
           //option中的方法
           minMonth:2,//最少展示2个月的信息
           xBlockNum:6,//x轴被分割几块
+          inputIsNull:false,//输入校验提示
+          copyModel:false//剪贴板检测模态框
       }
+    componentDidMount () {
 
-
+    }
+    componentDidShow () {
+        let that = this;
+        Taro.getClipboardData({
+            success (res){
+              let copyInfo = res.data;
+              let copyFlag = onlineRetailerList.findIndex(item=>{
+                return copyInfo.indexOf(item)>-1
+              })
+              if(copyFlag>-1){
+                    that.setState({
+                        copyModel:true,
+                        clipboardLink:copyInfo
+                    })
+              }
+            }
+          })
+    }
     //获取input value
     handelChange=value=>{
         this.setState({
@@ -36,11 +66,26 @@ class History extends Component{
     }
     msgLoadFn = ()=>{
         let that = this;
+        if(this.state.goodsLink){
+            this.setState({
+                msgLoad:false,
+                hasGoodsInfo:false
+            },()=>{
+                that.searchHistory();
+            })
+        }else{
+            this.setState({
+                inputIsNull:true
+            })
+        }
+    }
+    //剪贴板跳转商品
+    clipboardShop=()=>{
         this.setState({
-            msgLoad:false,
-            hasGoodsInfo:false
+            copyModel:false,
+            goodsLink:this.state.clipboardLink
         },()=>{
-            that.searchHistory();
+            this.msgLoadFn();
         })
     }
     //查询云函数获取数据
@@ -392,16 +437,31 @@ class History extends Component{
             console.log(this.state.alertNoGoods);
         })
     }
+    //关闭动作
+    inputNull=()=>{
+        this.setState({
+            inputIsNull:false
+        })
+    }
+    onClipboardClose=()=>{
+        this.setState({
+            copyModel:false,
+            goodsLink:''
+        },()=>{
+            console.log(this.state.goodsLink+"aaa");
+        })
+    }
     render(){
         return (<View className="container">
                     <View className="search-body">
                         <AtSearchBar
                             name='goodsLinkName'
                             title=''
-                            placeholder='请输入商品链接'
+                            placeholder='请输入或复制商品链接'
                             value={this.state.goodsLink}
                             onChange={this.handelChange.bind(this)}
                             onActionClick={this.msgLoadFn.bind(this)}
+                            maxLength={300}
                         />
                     </View>
                         
@@ -413,11 +473,15 @@ class History extends Component{
                                     <View className="img-view">
                                         <Image className="goodsImg" src={this.state.spPic} />
                                     </View>
-                                    <AtList className="price-info">
-                                        <AtListItem key="price1" title={"商品历史最低价:￥"+this.state.minPrice} />
-                                        <AtListItem key="price2" title={"商品最低价日期:"+this.state.minDate} />
-                                        <AtListItem key="price3" title={"当前商品价格:￥"+this.state.nowPrice} extraText={this.state.nowPrice>this.state.minPrice?"不是最低价":"是最低价"} />
-                                    </AtList>
+
+                                    <View className="price-info">
+                                        <View className="item">商品历史最低价:￥<Text className="price-red">{this.state.minPrice}</Text></View>
+                                        <View className="item">商品最低价日期:<Text className="price-blue">{this.state.minDate}</Text></View>
+                                        <View className="item now-price">
+                                            <View>当前商品价格:￥<Text className="price-red">{this.state.nowPrice}</Text></View>
+                                            <View className="price-gray">{this.state.nowPrice>this.state.minPrice?"不是最低价":"是最低价"}</View>
+                                        </View>
+                                    </View>
                                 </View>
                                 <View className="chart-body">
                                     <View className="charts-title">商品历史价格趋势图</View>
@@ -432,7 +496,15 @@ class History extends Component{
                             : 
                             <View className="noGoodsMsg">
                                 <View className="msg">
-                                    {this.state.msgLoad?'':'查询中,请稍等......'}
+                                    {this.state.msgLoad?
+                                    <View className="list-noGoodsMsg">
+                                        <View className="at-icon at-icon-shopping-bag no-icon"></View>
+                                        <View className="no-text">支持京东、天猫、淘宝、亚马逊、苏宁、拼多多、小米商城、国美、考拉、网易严选等商品网址</View>
+                                    </View>:
+                                    <View className="list-noGoodsMsg">
+                                        <View className="at-icon at-icon-loading-3 icon-loading"></View>
+                                        <View className="loading-title">精彩马上呈现</View>
+                                    </View>}
                                 </View>
                             </View>        
                         }
@@ -445,6 +517,21 @@ class History extends Component{
                             onConfirm={this.noGoodsAlertConfirm}
                             content='啊哦,该商品暂时没有收录哦'
                         />
+                        <AtCurtain
+                            closeBtnPosition="bottom"
+                            isOpened={this.state.copyModel}
+                            onClose={this.onClipboardClose}
+                        >
+                            <View className="clipboard-curtain">
+                                <View className="at-icon at-icon-search clipboard-icon"></View>
+                                <View className="clipboard-text">剪贴板可能存在商品链接，是否该查询商品</View>
+                                <View className="clipboard-view">
+                                    <AtButton className="clipboard-btn" circle={true} type="primary" onClick={this.clipboardShop}>去看看</AtButton>
+                                </View>
+                            </View>
+                        </AtCurtain>
+                        
+                        <AtToast isOpened={this.state.inputIsNull} text="输入不能为空哦" icon="alert-circle" onClose={this.inputNull} duration={800}></AtToast>
                 </View>)
     }
 }

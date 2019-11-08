@@ -1,0 +1,85 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    background: #f8f8f8;
+    overflow: auto;
+}
+.par{
+    width:100%;
+    height:20vh;
+}
+.section {
+    text-align: center;
+    background-color: #fff;
+    margin: 20rpx;
+    border-radius: 10rpx;
+    padding: 20rpx;
+    box-shadow: 2px 2px 2px 1px #ddd;
+    Text {
+        font-size: 28rpx;
+        line-height: 2em;
+        color:#666;
+    }
+    .section-body .text-goal{
+        color:red
+    }
+    .section-footer{
+        margin: 20rpx 0 0 0;
+        border-radius:0 0 10rpx 10rpx ;
+        border-top:2rpx solid #d6e4ef;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    .section-footer .copy-btn{
+        margin:20rpx 0 0 0;
+        border-radius: 8rpx;
+        color:#ffffff;
+        background: #EE7000;
+        height:60rpx;
+        font-size:1rem;
+        display: flex;
+        align-items: center;
+    }
+    .section-footer .copy-btn::after {
+        border: none;
+    }
+    .section-footer .copy-btn:active{
+    background:rgba(238, 112, 0, 0.7)
+    }
+}
+.poem-loading-view{
+    width:100vw;
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:#EE7000;
+    .poem-loading{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column;
+    }
+    .poem-loading .icon-loading{
+        animation: loading 1s infinite;
+        font-size:3rem;
+    }
+}
+@keyframes loading {
+	0% {
+	transform:rotate(0deg);
+    }
+    25% {
+        transform:rotate(90deg);
+    }
+    50% {
+        transform:rotate(180deg);
+    }
+    75% {
+        transform:rotate(270deg);
+    }
+    100% {
+        transform:rotate(360deg);
+    }
+}

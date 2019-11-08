@@ -1,0 +1,31 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    background: #f8f8f8;
+    overflow: auto;
+}
+.section{
+    margin:20rpx;
+    .poem-title{
+        display: flex;
+        align-items: center;
+        font-size:1.1rem;
+        font-weight:500;
+        padding:20rpx 0;
+        color:#EE7000;
+    }
+}
+.input-style{
+    margin:20rpx;
+    padding:20rpx;
+}
+.btn-submit{
+    color: #fff;
+    background: #EE7000;
+  }
+  .btn-submit::after {
+    border: none;
+  }
+  .btn-submit:active{
+    background:rgba(238, 112, 0, 0.7)
+  }

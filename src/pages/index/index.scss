@@ -15,6 +15,17 @@ $heights:70vh;
     margin:20rpx;
     background-size: 100% 100%;
 }
+.history-bg{
+    position: absolute;
+    top: 0;
+    left:0;
+    right:0;
+    bottom:0;
+    border-radius: 3%;
+    height:$heights - 6;
+    margin:20rpx;
+    background:rgba(1, 1, 1, 0.5);
+}
 .history-title{
     position: absolute;
     top: 5%;
@@ -27,18 +38,30 @@ $heights:70vh;
 }
 .history-info{
     position: absolute;
-    bottom: 10%;
-    height:10vh;
+    bottom: 8%;
+    height:12vh;
     margin:20rpx;
     left: 5%;
     font-weight:blod;
     font-size: .9rem;
-    color:#fff;
+    color:#ffffff;
     display: flex;
     flex-flow: column;
     justify-content: space-around;
+    .history-text{
+        margin:10rpx 0;
+    }
 }
-
+.wallpaper-positioning{
+    border-radius: 3%;
+    height:$heights - 6;
+    margin:20rpx;
+    background:#fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
 .wallpaper-swiper{
     border-radius: 3%;
     height:$heights - 6;
@@ -54,6 +77,17 @@ $heights:70vh;
     font-size: 2rem;
     margin:20rpx;
     color:#fff
+}
+.weather-bg{
+    position: absolute;
+    top: 0;
+    left:0;
+    right:0;
+    bottom:0;
+    border-radius: 3%;
+    height:$heights - 6;
+    margin:20rpx;
+    background:rgba(1, 1, 1, 0.3);
 }
 .weather-local{
     position: absolute;
@@ -117,4 +151,28 @@ $heights:70vh;
     text-align: center;
     align-items: center;
     font-size:1rem;
+}
+.icon-position{
+    animation: positioning 1.5s infinite ease-in-out;
+}
+.positon-text{
+    font-size:1rem;
+    color:#4395ff;
+}
+@keyframes positioning {
+	0% {
+	    opacity: 1;
+    }
+    25% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 0.1;
+    }
+    75%{
+        opacity: 0.5;
+    }
+    100%{
+        opacity: 1;
+    }
 }

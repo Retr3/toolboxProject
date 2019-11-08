@@ -2,7 +2,7 @@
   "name": "toolboxProject",
   "version": "1.0.0",
   "private": true,
-  "description": "工具箱项目(个人)",
+  "description": "微信小程序工具箱(个人)",
   "templateInfo": {
     "name": "mobx",
     "typescript": false,

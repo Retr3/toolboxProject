@@ -8,7 +8,7 @@ import './TodayHistory-page.scss'
 @observer
 class TodayHistory extends Component{
     config = {
-        navigationBarTitleText: '历史上的今天'
+        navigationBarTitleText: '往日回忆'
     }
     state={
         

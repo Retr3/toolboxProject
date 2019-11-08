@@ -152,8 +152,13 @@ class MovieCollection extends Component{
                 that.setState({
                     unStar:true
                 },()=>{
-                    that.getCollectionList(true);
-                    //that.state.collectionList
+                   // that.getCollectionList(true);
+                    let newList = that.state.collectionList.filter(item=>item._id!=id);
+                    that.setState({
+                        collectionList:newList
+                    },()=>{
+                        console.log(that.state.collectionList);
+                    })
                     that.setBriefStar();
                 })
             },
