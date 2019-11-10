@@ -4,11 +4,13 @@ import { AtCard, AtButton, AtNavBar} from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
 import './TodayHistory-page.scss'
 
+@inject('navStore')
 @inject('todayHistoryStore')
 @observer
 class TodayHistory extends Component{
     config = {
-        navigationBarTitleText: '往日回忆'
+        navigationBarTitleText: '往日回忆',
+        "navigationStyle": "custom"
     }
     state={
         
@@ -18,9 +20,25 @@ class TodayHistory extends Component{
     }
     componentDidMount () { 
     }
+    goBackPre=()=>{
+        Taro.navigateBack();
+    }
     render(){
-        const { todayHistoryStore } = this.props;
+        const { todayHistoryStore,navStore } = this.props;
         return (<View className="container">
+                    <View className="bar-basecolor" style={'width:100vw'}>
+                        <View className="bar-transparent"  style={`height:${navStore.statusHeight}px;width:100%`}></View>
+                        <View  style={`height:${navStore.navHeight}px`}>
+                            <AtNavBar
+                                className="bar-transparent"
+                                onClickLeftIcon={this.goBackPre}
+                                color='#fff'
+                                title='往日回忆'
+                                leftText=''
+                                leftIconType='chevron-left'
+                            />
+                        </View>
+                    </View>
                     {todayHistoryStore.todayHistoryEven?todayHistoryStore.todayHistoryEven.map((item,index)=>{
                         return (<View className="card-info" key={"card"+index}>
                                     <View className="card-heard">

@@ -1,6 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Picker } from '@tarojs/components'
-import { AtIcon, AtToast, AtInputNumber } from 'taro-ui'
+import { AtIcon, AtToast, AtInputNumber, AtNavBar } from 'taro-ui'
+import { observer, inject } from '@tarojs/mobx'
+
 import './exchangeRate-page.scss'
 
 const currencyList ={
@@ -46,10 +48,13 @@ const selectorList =[
   "西班牙比塞塔","意大利里拉","荷兰盾","比利时法郎","芬兰马克","印尼卢比","巴西里亚尔","阿联酋迪拉姆","印度卢比",
   "南非兰特","沙特里亚尔","土耳其里拉"]
 const numReg = /^(([^0][0-9]+|0)\.([0-9]{1,4})$)|^(([^0][0-9]+|0)$)|^(([1-9]+)\.([0-9]{1,4})$)|^(([1-9]+)$)/;
+@inject('navStore')
+@observer
 class exchangeRate extends Component{
     config = {
         navigationBarTitleText: '汇率',
-        "enablePullDownRefresh": true
+        "enablePullDownRefresh": true,
+        "navigationStyle": "custom"
       }
     state={
       pjname:'1316',
@@ -294,8 +299,23 @@ class exchangeRate extends Component{
         moneyError:false
       })
     }
+    goBackPre=()=>{
+      Taro.navigateBack();
+    }
     render(){
+      const { navStore } = this.props;
         return (<View class='container'>
+                  <View className="bar-basecolor"  style={`height:${navStore.statusHeight}px;width:100%`}></View>
+                  <View  style={`height:${navStore.navHeight}px`}>
+                      <AtNavBar
+                          className="bar-basecolor"
+                          onClickLeftIcon={this.goBackPre}
+                          color='#fff'
+                          title='汇率'
+                          leftText=''
+                          leftIconType='chevron-left'
+                      />
+                  </View>
                   <View className='section'>
                     <View className="ratecomput-title"><AtIcon prefixClass='icon' value='exchange-rate2' size='20' color='#6190e8'></AtIcon> 汇率计算器</View>
                     <View className="rate-info">

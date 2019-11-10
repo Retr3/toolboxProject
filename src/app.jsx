@@ -3,6 +3,7 @@ import { Provider } from '@tarojs/mobx'
 import '@tarojs/async-await'
 import Index from './pages/index'
 
+import navStore from './store/navStore'
 import wallpaperStore from './store/wallpaperStore'
 import weatherStore from './store/weatherStore'
 import todayHistoryStore from './store/todayHistoryStore'
@@ -25,7 +26,8 @@ const store = {
   weatherStore,
   todayHistoryStore,
   movieStore,
-  poemStore
+  poemStore,
+  navStore
 }
 
 class App extends Component {
@@ -126,8 +128,8 @@ class App extends Component {
       }
     }
   }
-
-  componentDidMount () {}
+  componentDidMount () {
+  }
 
   componentDidShow () {}
 

@@ -1,15 +1,17 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Navigator } from '@tarojs/components'
-import { AtIcon,AtList, AtListItem} from 'taro-ui'
+import { AtIcon,AtList, AtListItem,AtNavBar } from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
 import { weatherImgUrl,weatherIconUrl,codeJsonUrl } from '../../../untils/untils';
 import {divSevenDays} from '../../../untils/weather-api'
 import './weather-page.scss'
 @inject('weatherStore')
+@inject('navStore')
 @observer
 class Weather extends Component{
     config = {
-        navigationBarTitleText: '今日天气'
+        navigationBarTitleText: '今日天气',
+        "navigationStyle": "custom"
       }
     state = {
         air_tips:'',
@@ -59,10 +61,25 @@ class Weather extends Component{
         })
 
     }
+    goBackPre=()=>{
+        Taro.navigateBack();
+    }
     render(){
-        const {weatherStore} = this.props;
+        const {weatherStore, navStore} = this.props;
         console.log(weatherStore);
         return (<View className={'container '+this.state.backgroundClass} >
+                    <View className="bar-transparent" style={`height:${navStore.statusHeight}px;width:100%`}></View>
+                    <View  style={`height:${navStore.navHeight}px`}>
+                        <AtNavBar
+                            className="bar-transparent"
+                            onClickLeftIcon={this.goBackPre}
+                            color='#fff'
+                            title='今日天气'
+                            leftText=''
+                            leftIconType='chevron-left'
+                        />
+                    </View>
+            
                     <View className="wea-local">
                         <View>{weatherStore.weatherInfo.municipalName+"-"+weatherStore.weatherInfo.city}</View>
                     </View>

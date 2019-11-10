@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text } from '@tarojs/components'
-import { AtCurtain, AtSearchBar,AtToast, AtModal, AtButton} from 'taro-ui'
+import { AtCurtain, AtSearchBar,AtToast, AtModal, AtButton,AtNavBar} from 'taro-ui'
+import { observer, inject } from '@tarojs/mobx'
 import Chart from 'taro-echarts'
 
 
@@ -15,9 +16,13 @@ const onlineRetailerList = [
     'https://item.jd.com',
     'https://mobile.yangkeduo.com/'
 ]
+
+@inject('navStore')
+@observer
 class History extends Component{
     config = {
-        navigationBarTitleText: '网购历史价格查询'
+        navigationBarTitleText: '商品历史价格查询',
+        "navigationStyle": "custom"
       }
       state={
           goodsLink:'',
@@ -451,8 +456,25 @@ class History extends Component{
             console.log(this.state.goodsLink+"aaa");
         })
     }
+    goBackPre=()=>{
+        Taro.navigateBack();
+    }
     render(){
+        const { navStore } = this.props;
         return (<View className="container">
+                    <View className="bar-basecolor" style={'width:100vw'}>
+                        <View className="bar-transparent"  style={`height:${navStore.statusHeight}px;width:100%`}></View>
+                        <View  style={`height:${navStore.navHeight}px`}>
+                            <AtNavBar
+                                className="bar-transparent"
+                                onClickLeftIcon={this.goBackPre}
+                                color='#fff'
+                                title='商品历史价'
+                                leftText=''
+                                leftIconType='chevron-left'
+                            />
+                        </View>
+                    </View>
                     <View className="search-body">
                         <AtSearchBar
                             name='goodsLinkName'

@@ -3,6 +3,11 @@
     height: 100vh;
     background: #f8f8f8;
 }
+.wallpaper-bar{
+    position: absolute;
+    top:0;
+    width:100vw;
+}
 .wallpaper-style{
     height:100vh;
     width:100vw;
@@ -23,6 +28,7 @@
     width: 100vw;
     color: #fff;
     background: rgba(1, 1, 1, 0.5);
+    
     .Msg-style{
        font-size: .8rem;
        margin-left:10rpx;
@@ -39,22 +45,26 @@
 .wallpaper-act{
     display: flex;
     justify-content: space-around;
-    margin:20rpx;
+    padding:20rpx;
     .share-btn{
-        border-radius: 20rpx;
+        border-radius: 50%;
         display: flex;
         align-items: center;
-        width:30vw;
+        width:80px;
+        height:80px;
     }
     .save-btn{
-        border-radius: 20rpx;
+        border-radius: 50%;
         display: flex;
         align-items: center;
         border:1px solid #333333;
-        width:30vw;
+        width:80px;
+        height:80px;
     }
 }
-
+.at-nav-bar::after{
+    border: none;
+} 
 @keyframes sharpen {
     from {
       filter: blur(20px);

@@ -3,3 +3,18 @@ $color-brand: #1296db;
 $color-brand-light: #4db0e4;
 $color-brand-dark: #0e78af;
 @import "~taro-ui/dist/style/index.scss";
+.bar-transparent{
+    background: rgba(255,255,255,0);
+}
+.bar-personal{
+    background-image: linear-gradient(160deg, #00ffd5 20%,#008cff 80%);
+    .at-nav-bar__title{
+        color:#fff;
+    }
+}
+.bar-basecolor{
+    background: linear-gradient(to right, #92fe9d 0%, #00c9ff 100%);
+    .at-nav-bar__title{
+        color:#fff;
+    }
+}

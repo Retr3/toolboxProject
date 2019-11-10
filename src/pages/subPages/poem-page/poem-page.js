@@ -1,15 +1,16 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text } from '@tarojs/components'
-import { AtRadio , AtButton, AtInput,AtToast} from 'taro-ui'
+import { AtRadio , AtButton, AtInput,AtToast, AtNavBar} from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
 
 import './poem-page.scss'
 @inject('poemStore')
+@inject('navStore')
 @observer
 class Poem extends Component{
     config = {
         navigationBarTitleText: '作首诗',
-        "navigationBarBackgroundColor": "#EE7000"
+        "navigationStyle": "custom"
       }
     state={
         poemTypeOpt:[
@@ -120,8 +121,23 @@ class Poem extends Component{
             inputIsNull:false
         })
     }
+    goBackPre=()=>{
+        Taro.navigateBack();
+    }
     render(){
+        const { navStore } = this.props;
         return (<View className='container'>
+                <View className="bar-basecolor"  style={`height:${navStore.statusHeight}px;width:100%`}></View>
+                <View  style={`height:${navStore.navHeight}px`}>
+                    <AtNavBar
+                        className="bar-basecolor"
+                        onClickLeftIcon={this.goBackPre}
+                        color='#fff'
+                        title='作首诗'
+                        leftText=''
+                        leftIconType='chevron-left'
+                    />
+                </View>
                     <View>
                         <AtInput
                             name='value'

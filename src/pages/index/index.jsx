@@ -5,7 +5,7 @@ import { observer, inject } from '@tarojs/mobx'
 import './index.scss'
 import {weatherApi} from '../../untils/weather-api'
 import { qqMapKey,weatherImgUrl,weatherIconUrl,codeJsonUrl } from '../../untils/untils';
-
+import {getNavHeight} from '../../untils/nav-height'
 // import '../../assets/icon/bingbao.png'
 // import '../../assets/icon/lei.png'
 // import '../../assets/icon/qing.png'
@@ -25,6 +25,7 @@ const qqmapsdk = new QQMapWX({
 @inject('wallpaperStore')
 @inject('weatherStore')
 @inject('todayHistoryStore')
+@inject('navStore')
 @observer
 class Index extends Component {
   config = {
@@ -45,6 +46,11 @@ class Index extends Component {
   }
   
   componentWillMount () {
+    //导航栏高度写入
+    const { navStore } = this.props;
+    navStore.setNavHeight(getNavHeight().navheight);
+    navStore.setStatusHeight(getNavHeight().statusHeight);
+    console.log(navStore);
     let windowsWidth = Taro.getSystemInfoSync().windowWidth;
     let windowsHeight = Taro.getSystemInfoSync().windowHeight;
     let resolution = '480';
@@ -571,7 +577,7 @@ class Index extends Component {
                   value:'chart',
                   color:'#0e78af'
                 },
-                value: '网购历史\n价格查询'
+                value: '商品历史\n价格查询'
               },
               {
                 iconInfo:{

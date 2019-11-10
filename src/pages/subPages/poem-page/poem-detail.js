@@ -1,15 +1,16 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text,Navigator } from '@tarojs/components'
-import { AtRadio , AtButton, AtInput} from 'taro-ui'
+import { View, Button, Text } from '@tarojs/components'
+import { AtNavBar} from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
 import './poem-detail.scss'
 
 @inject('poemStore')
+@inject('navStore')
 @observer
 class PoemDetail extends Component{
     config = {
         navigationBarTitleText: '结果',
-        "navigationBarBackgroundColor": "#EE7000"
+        "navigationStyle": "custom"
     }
     state={
         result:''
@@ -41,11 +42,25 @@ class PoemDetail extends Component{
             }
           })
     }
+    goBackPre=()=>{
+        Taro.navigateBack();
+    }
     render(){
-        const { poemStore } = this.props; 
+        const { poemStore, navStore } = this.props; 
         const limitList = poemStore.poemInfo.text.split("");
         const SymbolList = ["，","。"];
         return (<View className='container'>
+                    <View className="bar-basecolor"  style={`height:${navStore.statusHeight}px;width:100%`}></View>
+                    <View  style={`height:${navStore.navHeight}px`}>
+                        <AtNavBar
+                            className="bar-basecolor"
+                            onClickLeftIcon={this.goBackPre}
+                            color='#fff'
+                            title='作首诗'
+                            leftText=''
+                            leftIconType='chevron-left'
+                        />
+                    </View>
                 {this.state.result?
                     this.state.result.map((item,index)=>{
                         let itemList = item.split("");

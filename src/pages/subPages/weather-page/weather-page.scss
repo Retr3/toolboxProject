@@ -2,6 +2,7 @@
     width: 100vw;
     height: 100vh;
     color:#ffffff;
+    overflow: auto;
 }
 .fineDay-background{
     background: -webkit-gradient(linear,0% 0,0% 100%,from(#50b2fb),to(#a6d4f6))
@@ -12,18 +13,18 @@
 }
 .wea-local{
     display: flex;
-    margin: 20rpx;
+    padding: 20rpx;
     justify-content: center;
 }
 .wea-tem{
-    margin:10rpx 20rpx 0rpx 20rpx;
+    padding:10rpx 20rpx 0rpx 20rpx;
     font-size: 3.5rem;
     font-weight:50;
     display:flex;
     justify-content: center;
 }
 .wea-tem2{
-    margin:0rpx 20rpx 0rpx 20rpx;
+    padding:0rpx 20rpx 0rpx 20rpx;
     font-size:1rem;
     display:flex;
     justify-content: center;
@@ -31,7 +32,7 @@
 $weaHeight:9vh;
 .wea-wea{
     height:$weaHeight;
-    margin:0rpx 20rpx 0rpx 20rpx;
+    padding:0rpx 20rpx 0rpx 20rpx;
     display: flex;
     justify-content: center;
 }
@@ -41,14 +42,14 @@ $weaHeight:9vh;
     background-size: 100% 100%;
 }
 .text-wea{
-    margin:0rpx 20rpx 0rpx 20rpx;
+    padding:0rpx 20rpx 0rpx 20rpx;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size:1.2rem;
 }
 .wea-info{
-    margin:15rpx 20rpx 15rpx 20rpx;
+    padding:15rpx 20rpx 15rpx 20rpx;
     font-size:.7rem;
     display:flex;
     justify-content: center;
@@ -126,12 +127,13 @@ $weaHeight:9vh;
     height:25%;
 }
 .wea-foot{
-    position: absolute;
-    bottom:0vw;
+    padding:10rpx;
     width:100vw;
     display:flex;
     justify-content: center;
     font-size:.7rem;
     font-weight: normal;
 }
-
+.at-nav-bar::after{
+    border: none;
+} 

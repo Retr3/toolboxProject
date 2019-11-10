@@ -1,16 +1,18 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Navigator } from '@tarojs/components'
-import { AtToast,AtButton, AtIcon} from 'taro-ui'
+import { AtToast,AtButton, AtIcon,AtNavBar} from 'taro-ui'
 import './wallpaper-page.scss'
 import { observer, inject } from '@tarojs/mobx'
 /**
  * 壁纸推荐功能页
  */
 @inject('wallpaperStore')
+@inject('navStore')
 @observer
 class Wallpaper extends Component{
     config = {
-        navigationBarTitleText: '壁纸推荐'
+        navigationBarTitleText: '壁纸推荐',
+        "navigationStyle": "custom"
       }
     state={
         sucTip:false,
@@ -62,15 +64,31 @@ class Wallpaper extends Component{
             imageUrl:wallpaperStore.wallpaperUrl
         }
     }
+    goBackPre=()=>{
+        Taro.navigateBack();
+    }
     render(){
-        const { wallpaperStore } = this.props;
+        const { wallpaperStore,navStore } = this.props;
         const enddate = wallpaperStore.nowDate.substring(0,4)+'-'
                 +wallpaperStore.nowDate.substring(4,6)+'-'
                 +wallpaperStore.nowDate.substring(6,wallpaperStore.nowDate.length)
-        return (<View>
-                    
+        return (<View className="container">
+                   
                     <View className="wallpaper-style" style={{backgroundImage: 'url('+wallpaperStore.wallpaperUrl+')'}}>
-                        {/* <Image className="wallpaper-style" src={} /> */}
+                        <View className="wallpaper-bar">
+                            <View className="bar-transparent"  style={`height:${navStore.statusHeight}px;width:100%`}></View>
+                            <View  style={`height:${70}px`}>
+                                <AtNavBar
+                                    className="bar-transparent"
+                                    onClickLeftIcon={this.goBackPre}
+                                    color='#fff'
+                                    title=''
+                                    leftText=''
+                                    leftIconType='chevron-left'
+                                />
+                            </View>
+                        </View>
+                        
                         <View className="wallpaperMsg">
                             <View className="Msg-style">
                                 {wallpaperStore.wallpaperMsg}
@@ -81,8 +99,8 @@ class Wallpaper extends Component{
                         </View>
                     </View>
                     <View className="wallpaper-act">
-                        <AtButton className="share-btn at-icon at-icon-share" type="primary" size="small" openType="share"><text  decode="{{true}}">&nbsp;分享给朋友</text></AtButton>
-                        <AtButton className="save-btn at-icon at-icon-download" size="small" onClick={this.saveImg}><text  decode="{{true}}">&nbsp;保存到相册</text></AtButton>
+                        <AtButton className="share-btn at-icon at-icon-share" type="primary" openType="share"></AtButton>
+                        <AtButton className="save-btn at-icon at-icon-download"  onClick={this.saveImg}></AtButton>
                     </View>
                     <AtToast isOpened={this.state.sucTip} 
                             duration={2000}

@@ -9,28 +9,40 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url('https://s0.meituan.net/bs/file/?f=my-canary:deploy/dpmmweb/client/dpmmweb/component/mycenter/img/bg.png');
+    background-image: linear-gradient(160deg, #00ffd5 20%,#008cff 80%);
     background-repeat: no-repeat;
     background-position: 50%;
-    background-size: 100% 300rpx;
-    height: 300rpx;
+    background-size: 100% 100%;
+    height: 350rpx;
     overflow: hidden;
     text-align: center;
+    .avatar{
+        width: 150rpx;
+        height: 150rpx;
+        border-radius: 50%;
+        border: 3px solid #fff;
+        overflow: hidden;
+        margin-bottom: 10px;
     }
-    .header .avatar{
-    width: 150rpx;
-    height: 150rpx;
-    border-radius: 50%;
-    border: 3px solid #fff;
-    overflow: hidden;
-    margin-bottom: 10px;
+    .name {
+        height: 45rpx;
+        margin-top: 14rpx;
+        font-size: 32rpx;
+        line-height: 45rpx;
+        color: #fff;
     }
-    .header .name {
-    height: 45rpx;
-    margin-top: 14rpx;
-    font-size: 32rpx;
-    line-height: 45rpx;
-    color: #fff;
+    .nickName{
+        color:#ffffff;
+        font-size: 1rem;
+    }
+    .btn-style{
+        background: #00a1f7;
+        font-size: 1rem;
+        color:#ffffff;
+    }
+    .btn-style::after {
+        border: none;
+    }
     }
     .info {
         margin-top: 20rpx;

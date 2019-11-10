@@ -1,11 +1,16 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Navigator } from '@tarojs/components'
 import { AtButton,AtList, AtListItem} from 'taro-ui'
+import { observer, inject } from '@tarojs/mobx'
+
 import unloginPng from '../../images/unlogin.png'
 import './personal.scss'
+@inject('navStore')
+@observer
 class Personal extends Component{
     config = {
-        navigationBarTitleText: '个人中心'
+        navigationBarTitleText: '个人中心',
+        "navigationStyle": "custom"
       }
       state={
         userInfo:Taro.getStorageSync('userInfo') || {}
@@ -60,21 +65,23 @@ class Personal extends Component{
           })
       }
     render(){
+      const { navStore } = this.props;
         return (<View className="container">
             <View className="header">
+                <View className="bar-transparent" style={`height:${navStore.navHeight}px;width:100%`}> </View>
             {
                     this.state.userInfo.openid ?<View>
                         <Image className="avatar" src={this.state.userInfo.avatarUrl} /> 
-                        <View>{this.state.userInfo.nickName}</View>   
+                        <View className="nickName">{this.state.userInfo.nickName}</View>   
                      </View>
                 : <View>
                         <Image className="avatar" src={unloginPng} />
                         
-                            <AtButton 
-                            type='primary'
+                            <Button 
+                            className="btn-style"
                             size="small" 
                             onGetUserInfo={this.onGetUserInfo}
-                            openType="getUserInfo">登录</AtButton>
+                            openType="getUserInfo">登录</Button>
                 </View>
             }
              </View>
