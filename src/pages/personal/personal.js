@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Navigator } from '@tarojs/components'
 import { AtButton,AtList, AtListItem} from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
-
+import {otherImgUrl} from '../../untils/untils'
 import unloginPng from '../../images/unlogin.png'
 import './personal.scss'
 @inject('navStore')
@@ -36,7 +36,7 @@ class Personal extends Component{
         var that = this;
         return {
           title: '这有一个野生的小程序',
-          imageUrl:'https://7a78-zxytest-37pbw-1259522293.tcb.qcloud.la/other_img/about-bg2.jpg',
+          imageUrl:otherImgUrl+'about-bg2.jpg',
           path: '/pages/index/index',
           success: function (res) {
             // 转发成功
@@ -51,17 +51,13 @@ class Personal extends Component{
       toMyCollection =()=>{
         Taro.navigateTo({
             url: '../subPages/help-page/help-page',
-            success: function(res) {
-                console.log(res);
-            }
+            success: function(res) {}
           })
       }
       toAboutPage =()=>{
         Taro.navigateTo({
             url: '../subPages/about-page/about-page',
-            success: function(res) {
-                console.log(res);
-            }
+            success: function(res) {}
           })
       }
     render(){

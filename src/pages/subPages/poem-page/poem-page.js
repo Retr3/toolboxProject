@@ -1,8 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text } from '@tarojs/components'
-import { AtRadio , AtButton, AtInput,AtToast, AtNavBar} from 'taro-ui'
+import { View, Text } from '@tarojs/components'
+import { AtRadio , AtButton, AtInput,AtToast } from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
-
+import NavBar from '../../../components/NavBar'
 import './poem-page.scss'
 @inject('poemStore')
 @inject('navStore')
@@ -52,6 +52,7 @@ class Poem extends Component{
                 poemWaitFlag:true
             },()=>{
                 this.waitFn();
+                this.resetText();
                 Taro.navigateTo({
                     url: './poem-detail',
                     fail:function(err){
@@ -110,6 +111,11 @@ class Poem extends Component{
             yayun
         })
     }
+    resetText = ()=>{
+        this.setState({
+            text:''
+        })
+    }
     //close action
     ontoastClose = () =>{
         this.setState({
@@ -121,24 +127,19 @@ class Poem extends Component{
             inputIsNull:false
         })
     }
-    goBackPre=()=>{
-        Taro.navigateBack();
-    }
+
     render(){
         const { navStore } = this.props;
+        const navOption ={
+            classtyle:"bar-basecolor",
+            title:'作首诗',
+            color:'#333',
+            statusHeight:navStore.statusHeight,
+            navHeight:navStore.navHeight
+        }
         return (<View className='container'>
-                <View className="bar-basecolor"  style={`height:${navStore.statusHeight}px;width:100%`}></View>
-                <View  style={`height:${navStore.navHeight}px`}>
-                    <AtNavBar
-                        className="bar-basecolor"
-                        onClickLeftIcon={this.goBackPre}
-                        color='#fff'
-                        title='作首诗'
-                        leftText=''
-                        leftIconType='chevron-left'
-                    />
-                </View>
-                    <View>
+                    <NavBar param={navOption}></NavBar>
+                    <View style={`margin-top:${navStore.navHeight+navStore.statusHeight+10}px`}>
                         <AtInput
                             name='value'
                             title='内容:'
@@ -159,7 +160,7 @@ class Poem extends Component{
                         />
                     </View>
                    <View class="section">
-                   <View className="poem-title at-icon at-icon-tag"><Text decode="{{true}}">&nbsp;&nbsp;类型</Text></View>
+                        <View className="poem-title at-icon at-icon-tag"><Text decode="{{true}}">&nbsp;&nbsp;类型</Text></View>
                         <AtRadio
                             options={this.state.wordOffsetOpt}
                             value={this.state.offset}

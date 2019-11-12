@@ -2,14 +2,15 @@
     width: 100vw;
     height: 100vh;
     background: #f8f8f8;
+    overflow: auto;
 }
 .search-body{
-    margin: 0 0 20rpx;
+    
     background: #fff;
     box-shadow: 0 0.5rem 3rem 0 rgba(0,0,0,.11);
-    min-height:100rpx;
+    //min-height:100rpx;
 }
-$heights:33vh;
+$heights:32vh;
 .release-list{
     height:$heights;
     margin:30rpx;
@@ -81,7 +82,7 @@ $heights:33vh;
     height:$heights;
     margin:30rpx;
 }
-$collectionheight:35vh;
+$collectionheight:34vh;
 .collection-view{
     height:$collectionheight;
     background: #f8f8f8;

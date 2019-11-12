@@ -62,9 +62,6 @@
         height:80px;
     }
 }
-.at-nav-bar::after{
-    border: none;
-} 
 @keyframes sharpen {
     from {
       filter: blur(20px);

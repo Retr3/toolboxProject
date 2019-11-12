@@ -1,16 +1,19 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text, Image} from '@tarojs/components'
-import { AtRate, AtDivider, AtIcon, AtSwipeAction, AtToast} from 'taro-ui'
+import { View } from '@tarojs/components'
+import { AtRate, AtDivider, AtIcon, AtSwipeAction, AtToast } from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
+import NavBar from '../../../components/NavBar'
 import {getCollectionInfo} from '../../../untils/movie-until'
 import './movie-collection.scss'
 const db = wx.cloud.database();
 @inject('movieStore')
+@inject('navStore')
 @observer
 class MovieCollection extends Component{
     config = {
         navigationBarTitleText: '我的收藏',
-        "enablePullDownRefresh": true
+        "enablePullDownRefresh": true,
+        "navigationStyle": "custom"
     }
     state={
         PAGE:5,
@@ -33,7 +36,6 @@ class MovieCollection extends Component{
     }
     //下拉刷新重载列表
     onPullDownRefresh() {
-        console.log('pulldown')
         this.getCollectionList(true)
     }
     //下拉动作
@@ -62,9 +64,6 @@ class MovieCollection extends Component{
             this.getList();
         }
        
-    }
-    gettest = ()=>{
-        console.log(1);
     }
     //获取列表页
     getList = init =>{
@@ -224,9 +223,11 @@ class MovieCollection extends Component{
             noMovie:true
         })
     }
-
+    goBackPre=()=>{
+        Taro.navigateBack();
+    }
     render(){
-        const { movieStore } = this.props;
+        const { movieStore,navStore } = this.props;
         const options = [
             {
               text: '取消',
@@ -243,42 +244,53 @@ class MovieCollection extends Component{
               }
             }
         ];
+        const navOption ={
+            classtyle:"bar-basecolor",
+            title:'我的收藏',
+            color:'#333',
+            statusHeight:navStore.statusHeight,
+            navHeight:navStore.navHeight
+        }
         return (<View className="container">
-                    {this.state.collectionList?this.state.collectionList.map((item, index) => (
-                        <AtSwipeAction
-                        key={item._id}
-                        autoClose={true}
-                        onOpened={this.handleSingle.bind(this, index)}
-                        isOpened={item.isOpened}
-                        options={options}
-                        class="star-swipe"
-                        onClick={this.swipeHandleClick.bind(this,item._id)}
-                        >
-                            <View className="at-row star-item" onClick={()=>{this.getMovieDetail(item.title)}}>
-                                <View className="at-col at-col-3 star-img" style={{backgroundImage:'url('+item.image+')'}}></View>
-                                <View className="at-col at-col-7 star-info">
-                                    <View className="star-title">{item.title}</View>
-                                    <View className="star-text">{item.region}</View>
-                                    <View className="star-text">{item.type}</View>
-                                    <View className="star-rate">
-                                        <AtRate max={5} value={(item.rate/2)} />
-                                        <text decode="{{true}}">&nbsp;&nbsp;{item.rate}</text>
+                    <NavBar param={navOption}></NavBar>
+                    <View style={`margin-top:${navStore.navHeight+navStore.statusHeight}px`}>
+                        {this.state.collectionList?this.state.collectionList.map((item, index) => (
+                            <AtSwipeAction
+                            key={item._id}
+                            autoClose={true}
+                            onOpened={this.handleSingle.bind(this, index)}
+                            isOpened={item.isOpened}
+                            options={options}
+                            class="star-swipe"
+                            onClick={this.swipeHandleClick.bind(this,item._id)}
+                            >
+                                <View className="at-row star-item" onClick={()=>{this.getMovieDetail(item.title)}}>
+                                    <View className="at-col at-col-3 star-img" style={{backgroundImage:'url('+item.image+')'}}></View>
+                                    <View className="at-col at-col-7 star-info">
+                                        <View className="star-title">{item.title}</View>
+                                        <View className="star-text">{item.region}</View>
+                                        <View className="star-text">{item.type}</View>
+                                        <View className="star-rate">
+                                            <AtRate max={5} value={(item.rate/2)} />
+                                            <text decode="{{true}}">&nbsp;&nbsp;{item.rate}</text>
+                                        </View>
                                     </View>
+                                    <View className="at-col at-col-2 star-arrow at-icon at-icon-chevron-right"></View>
                                 </View>
-                                <View className="at-col at-col-2 star-arrow at-icon at-icon-chevron-right"></View>
-                            </View>
-                        {/* <AtListItem 
-                            title={item.title}
-                            note={item.type}
-                            extraText='详细信息'
-                            arrow='right'
-                            thumb={item.image}
-                            onClick={()=>{this.getMovieDetail(item.title)}} /> */}
-                        </AtSwipeAction>
-                    )):<View className="no-collection">
-                            <AtIcon className="no-text" prefixClass='icon' value='kong' size='40' color='#78A4FA'></AtIcon>
-                            <View className="no-text">您还没有任何收藏</View>
-                        </View>}
+                            {/* <AtListItem 
+                                title={item.title}
+                                note={item.type}
+                                extraText='详细信息'
+                                arrow='right'
+                                thumb={item.image}
+                                onClick={()=>{this.getMovieDetail(item.title)}} /> */}
+                            </AtSwipeAction>
+                        )):<View className="no-collection">
+                                <AtIcon className="no-text" prefixClass='icon' value='kong' size='40' color='#78A4FA'></AtIcon>
+                                <View className="no-text">您还没有任何收藏</View>
+                            </View>}
+                    </View>
+                    
                     {
                         this.state.more?'':
                         <View className="divider-style" >

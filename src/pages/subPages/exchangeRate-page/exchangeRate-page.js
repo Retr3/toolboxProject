@@ -1,8 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Picker } from '@tarojs/components'
-import { AtIcon, AtToast, AtInputNumber, AtNavBar } from 'taro-ui'
+import { AtIcon, AtToast, AtInputNumber } from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
-
+import NavBar from '../../../components/NavBar'
 import './exchangeRate-page.scss'
 
 const currencyList ={
@@ -299,31 +299,25 @@ class exchangeRate extends Component{
         moneyError:false
       })
     }
-    goBackPre=()=>{
-      Taro.navigateBack();
-    }
     render(){
       const { navStore } = this.props;
+      const navOption ={
+        classtyle:"bar-basecolor",
+        title:'汇率',
+        color:'#333',
+        statusHeight:navStore.statusHeight,
+        navHeight:navStore.navHeight
+      }
         return (<View class='container'>
-                  <View className="bar-basecolor"  style={`height:${navStore.statusHeight}px;width:100%`}></View>
-                  <View  style={`height:${navStore.navHeight}px`}>
-                      <AtNavBar
-                          className="bar-basecolor"
-                          onClickLeftIcon={this.goBackPre}
-                          color='#fff'
-                          title='汇率'
-                          leftText=''
-                          leftIconType='chevron-left'
-                      />
-                  </View>
-                  <View className='section'>
+                  <NavBar param={navOption}></NavBar>
+                  <View className='section' style={`margin-top:${navStore.navHeight+navStore.statusHeight+20}px`}>
                     <View className="ratecomput-title"><AtIcon prefixClass='icon' value='exchange-rate2' size='20' color='#6190e8'></AtIcon> 汇率计算器</View>
                     <View className="rate-info">
                       <View className="ratecomput-input">
                         <View className="at-col4">持有金额：</View>
                         <View className="at-col6">
                           <AtInputNumber
-                            min={1}
+                            min={0}
                             max={100000000}
                             step={1}
                             width={200}
@@ -389,7 +383,7 @@ class exchangeRate extends Component{
                     </View>
                   </View>
                   <View className='section'>
-                    <Text>数据仅供参考，交易时以银行柜台成交价为准\n更新时间:{this.state.time}</Text>
+                    <Text>数据来源于中国银行,内容仅供参考，交易时以银行柜台成交价为准\n更新时间:{this.state.time}</Text>
                   </View>
                   <AtToast isOpened={this.state.nameIsNull} onClose={this.onNameClose} duration={1100} text="货币不能为空哦"></AtToast>
                   <AtToast isOpened={this.state.moneyError} onClose={this.onMoneyClose} duration={1100} text="请输入正确的金额"></AtToast>

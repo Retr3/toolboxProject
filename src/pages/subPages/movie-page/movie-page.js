@@ -1,15 +1,18 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text,Navigator, Swiper, SwiperItem } from '@tarojs/components'
-import { AtSearchBar, AtTabs, AtTabsPane, AtToast , AtList, AtListItem, AtIcon} from 'taro-ui'
+import { AtSearchBar, AtTabs, AtTabsPane, AtToast , AtList, AtListItem, AtIcon } from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
+import NavBar from '../../../components/NavBar'
 import {getCollectionInfo} from '../../../untils/movie-until'
 import './movie-page.scss'
 const db = wx.cloud.database();
 @inject('movieStore')
+@inject('navStore')
 @observer
 class WatchMovie extends Component{
     config = {
-        navigationBarTitleText: '查电影'
+        navigationBarTitleText: '查电影',
+        "navigationStyle": "custom"
     }
     state={
         movieName:'',
@@ -95,6 +98,7 @@ class WatchMovie extends Component{
                     Taro.hideLoading();
                     if(res.result){
                         movieStore.changeMovieInfo(res.result);
+                        this.resetText();
                         this.toMovieDetail();
                     }else{
                         console.log("暂时没有收录该影片")
@@ -341,6 +345,11 @@ class WatchMovie extends Component{
             current:value
         })
     }
+    resetText = ()=>{
+        this.setState({
+            movieName:''
+        })
+    }
     //轻提示关闭
     closeNullShow=()=>{
         this.setState({
@@ -368,10 +377,18 @@ class WatchMovie extends Component{
         })
     }
     render(){
-        const { movieStore } = this.props;
+        const { movieStore, navStore } = this.props;
         const tabList = [{ title: '院线热映' }, { title: '即将上映' }]
+        const navOption ={
+            classtyle:"bar-basecolor",
+            title:'电影评分',
+            color:'#333',
+            statusHeight:navStore.statusHeight,
+            navHeight:navStore.navHeight
+        }
         return (<View className="container">
-                    <View className="search-body">
+                    <NavBar param={navOption}></NavBar>
+                    <View className="search-body" style={`margin-top:${navStore.navHeight+navStore.statusHeight}px`}>
                         <AtSearchBar
                             name='getMovieName'
                             title=''

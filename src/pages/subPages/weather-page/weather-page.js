@@ -1,9 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text,Navigator } from '@tarojs/components'
-import { AtIcon,AtList, AtListItem,AtNavBar } from 'taro-ui'
+import { View } from '@tarojs/components'
+import { AtIcon } from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
-import { weatherImgUrl,weatherIconUrl,codeJsonUrl } from '../../../untils/untils';
+import { weatherIconUrl } from '../../../untils/untils';
 import {divSevenDays} from '../../../untils/weather-api'
+import NavBar from '../../../components/NavBar'
 import './weather-page.scss'
 @inject('weatherStore')
 @inject('navStore')
@@ -61,29 +62,20 @@ class Weather extends Component{
         })
 
     }
-    goBackPre=()=>{
-        Taro.navigateBack();
-    }
     render(){
         const {weatherStore, navStore} = this.props;
-        console.log(weatherStore);
+        let title = weatherStore.weatherInfo.municipalName?weatherStore.weatherInfo.municipalName+"-"+weatherStore.weatherInfo.city:'';
+        const navOption ={
+            classtyle:"",
+            navstyle:"bar-transparentwhite",
+            title:title,
+            color:'#fff',
+            statusHeight:navStore.statusHeight,
+            navHeight:navStore.navHeight
+        }
         return (<View className={'container '+this.state.backgroundClass} >
-                    <View className="bar-transparent" style={`height:${navStore.statusHeight}px;width:100%`}></View>
-                    <View  style={`height:${navStore.navHeight}px`}>
-                        <AtNavBar
-                            className="bar-transparent"
-                            onClickLeftIcon={this.goBackPre}
-                            color='#fff'
-                            title='今日天气'
-                            leftText=''
-                            leftIconType='chevron-left'
-                        />
-                    </View>
-            
-                    <View className="wea-local">
-                        <View>{weatherStore.weatherInfo.municipalName+"-"+weatherStore.weatherInfo.city}</View>
-                    </View>
-                    <View className="wea-tem">
+                    <NavBar param={navOption}></NavBar>
+                    <View className="wea-tem" style={`margin-top:${navStore.navHeight+navStore.statusHeight+10}px`}>
                         <text decode="{{true}}">{"&nbsp;"+weatherStore.weatherInfo.tem+"°"}</text>
                     </View>
                     <View className="wea-tem2"><text decode="{{true}}">{

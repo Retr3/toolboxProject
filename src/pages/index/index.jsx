@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text, Swiper, SwiperItem } from '@tarojs/components'
 import { AtGrid, AtToast, AtIcon, AtModal, AtModalHeader, AtModalContent, AtModalAction } from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
+import NavBar from '../../components/NavBar'
 import './index.scss'
 import {weatherApi} from '../../untils/weather-api'
 import { qqMapKey,weatherImgUrl,weatherIconUrl,codeJsonUrl } from '../../untils/untils';
@@ -29,7 +30,8 @@ const qqmapsdk = new QQMapWX({
 @observer
 class Index extends Component {
   config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '首页',
+    "navigationStyle": "custom"
   }
   state = {
     toastOpen:false,
@@ -50,7 +52,6 @@ class Index extends Component {
     const { navStore } = this.props;
     navStore.setNavHeight(getNavHeight().navheight);
     navStore.setStatusHeight(getNavHeight().statusHeight);
-    console.log(navStore);
     let windowsWidth = Taro.getSystemInfoSync().windowWidth;
     let windowsHeight = Taro.getSystemInfoSync().windowHeight;
     let resolution = '480';
@@ -292,7 +293,6 @@ class Index extends Component {
         if(redata && redata.data.length>0){
           console.log('存在壁纸，读库');
           this.pathchange(redata.data[0].fileId).then(res=>{
-              console.log(res.fileList[0].tempFileURL);
               wallpaperStore.changeurl(res.fileList[0].tempFileURL);
               wallpaperStore.changemsg(redata.data[0].wallpaperMsg);
               
@@ -356,7 +356,8 @@ class Index extends Component {
                   cloudPath:'wallpaper_img/'+this.state.newImgName,
                   filePath: path,
                   config:{
-                      env:'zxytest-37pbw'
+                      //env:'zxytest-37pbw'
+                      env:'z-prod-env-5kd1i'
                   },
                   success:res=>{
                       console.log("上传成功:"+res.fileID);
@@ -410,7 +411,6 @@ class Index extends Component {
     let myDate = new Date();
     myDate.setTime(time);
     let nowDate = (myDate.getMonth()+1) + "/" + myDate.getDate();
-    console.log(nowDate);
    //历史今天数据
    db.collection('today_history').where({
      day:nowDate
@@ -422,7 +422,6 @@ class Index extends Component {
            hisPicUrl:picList[0].picUrl,
            hisTitle:[res.data[0].title,res.data[1].title,res.data[2].title]
          },()=>{
-           console.log("today"+this.state);
            todayHistoryStore.changeTodayHistoryEven(res.data);
          })
        }else{
@@ -507,124 +506,132 @@ class Index extends Component {
     })
   }
   render () {
-    const { wallpaperStore,weatherStore } = this.props;
+    const { wallpaperStore,weatherStore,navStore } = this.props;
+    const navOption ={
+      classtyle:"bar-index",
+      navstyle:'bar-index',
+      title:'首页',
+      color:'#333',
+      leftIconType:"index",
+      statusHeight:navStore.statusHeight,
+      navHeight:navStore.navHeight
+    }
     return (
       <View className="container">
-        <View>
-          <Swiper
-          className='test-h'
-          indicatorColor='#999'
-          indicatorActiveColor='#333'
-          vertical={false}
-          interval={3000}
-          circular={true}
-          indicatorDots={true}
-          autoplay={false}>
-             <SwiperItem>
-               {
-                 weatherStore.weatherInfo?
-                 <View>
-                    <View className='wallpaper-swiper' style={weatherStore.weatherInfo.wea_img?{backgroundImage:'url('+weatherImgUrl+weatherStore.weatherInfo.wea_img+'.jpg)'}:""}></View>
-                    <View className='weather-bg' onClick={this.toWeather} ></View>
-                    <View className="weather-local">{weatherStore.weatherInfo.municipalName?weatherStore.weatherInfo.municipalName+"-"+weatherStore.weatherInfo.city:''}</View>
-                    <View className="weather-tem">{weatherStore.weatherInfo.tem?weatherStore.weatherInfo.tem+"°":''}</View>
-                    <View className="weather-icon" style={weatherStore.weatherInfo.wea_img?{backgroundImage:'url('+weatherIconUrl+weatherStore.weatherInfo.wea_img+'.png)'}:""}></View>
-                    <View className="weather-info">
-                        <View className="wea-update"><text decode="{{true}}">{weatherStore.weatherInfo.update_time?weatherStore.weatherInfo.update_time+`&nbsp;更新`:''}</text></View>
-                        <View><text decode="{{true}}">{weatherStore.weatherInfo.date?weatherStore.weatherInfo.date+`&nbsp;&nbsp;`+weatherStore.weatherInfo.week:''}</text></View>
-                        <View className='weather-temInfo'>
-                          {weatherStore.weatherInfo.wea?weatherStore.weatherInfo.wea+" "+weatherStore.weatherInfo.tem2+"°/"+weatherStore.weatherInfo.tem1+"°":''}
-                        </View>
+        <NavBar param={navOption}></NavBar>
+        <View style={`margin-top:${navStore.navHeight+navStore.statusHeight}px`}>
+          <View>
+            <Swiper
+            className='test-h'
+            indicatorColor='#999'
+            indicatorActiveColor='#333'
+            vertical={false}
+            interval={5000}
+            circular={true}
+            indicatorDots={true}
+            autoplay={true}>
+              <SwiperItem>
+                {
+                  weatherStore.weatherInfo?
+                  <View>
+                      <View className='wallpaper-swiper' style={weatherStore.weatherInfo.wea_img?{backgroundImage:'url('+weatherImgUrl+weatherStore.weatherInfo.wea_img+'.jpg)'}:""}></View>
+                      <View className='weather-bg' onClick={this.toWeather} ></View>
+                      <View className="weather-local">{weatherStore.weatherInfo.municipalName?weatherStore.weatherInfo.municipalName+"-"+weatherStore.weatherInfo.city:''}</View>
+                      <View className="weather-tem">{weatherStore.weatherInfo.tem?weatherStore.weatherInfo.tem+"°":''}</View>
+                      <View className="weather-icon" style={weatherStore.weatherInfo.wea_img?{backgroundImage:'url('+weatherIconUrl+weatherStore.weatherInfo.wea_img+'.png)'}:""}></View>
+                      <View className="weather-info">
+                          <View className="wea-update"><text decode="{{true}}">{weatherStore.weatherInfo.update_time?weatherStore.weatherInfo.update_time+`&nbsp;更新`:''}</text></View>
+                          <View><text decode="{{true}}">{weatherStore.weatherInfo.date?weatherStore.weatherInfo.date+`&nbsp;&nbsp;`+weatherStore.weatherInfo.week:''}</text></View>
+                          <View className='weather-temInfo'>
+                            {weatherStore.weatherInfo.wea?weatherStore.weatherInfo.wea+" "+weatherStore.weatherInfo.tem2+"°/"+weatherStore.weatherInfo.tem1+"°":''}
+                          </View>
+                      </View>
                     </View>
-                  </View>
-                 :
-                  <View className='wallpaper-positioning'>
-                    <View><AtIcon className="icon-position" prefixClass='icon' value='position-2' size='50' color='#4395ff'></AtIcon></View>
-                    <View className="positon-text">定位中,请稍等</View>
-                  </View>
-               }
-               
-
-               
-               
-
-            </SwiperItem>
-            <SwiperItem >
-              <View className='history-swiper' style={{backgroundImage:'url('+this.state.hisPicUrl+')'}}></View>
-              <View className='history-bg' onClick={this.toTodayHistory} ></View>
-              <View className='history-title'>往日回忆</View>
-              <View className='history-info'>
-                <View className="at-icon at-icon-clock history-text"><text decode="{{true}}">{'&nbsp;'+this.state.hisTitle[0]}</text></View>
-                <View className="at-icon at-icon-clock history-text"><text decode="{{true}}">{'&nbsp;'+this.state.hisTitle[1]}</text></View>
-                <View className="at-icon at-icon-clock history-text"><text decode="{{true}}">{'&nbsp;'+this.state.hisTitle[2]}</text></View> 
-              </View>
-            </SwiperItem>
-            <SwiperItem >
-              <View className='wallpaper-swiper' style={{backgroundImage:'url('+wallpaperStore.wallpaperUrl+')'}} onClick={this.toWallpaper}></View>
-              <View className="wallpaper-title">每日壁纸</View>
-            </SwiperItem>
-          </Swiper>
+                  :
+                    <View className='wallpaper-positioning'>
+                      <View><AtIcon className="icon-position" prefixClass='icon' value='position-2' size='50' color='#4395ff'></AtIcon></View>
+                      <View className="positon-text">定位中,请稍等</View>
+                    </View>
+                }
+              </SwiperItem>
+              <SwiperItem >
+                <View className='history-swiper' style={{backgroundImage:'url('+this.state.hisPicUrl+')'}}></View>
+                <View className='history-bg' onClick={this.toTodayHistory} ></View>
+                <View className='history-title'>历史上的今天</View>
+                <View className='history-info'>
+                  <View className="at-icon at-icon-clock history-text"><text decode="{{true}}">{'&nbsp;'+this.state.hisTitle[0]}</text></View>
+                  <View className="at-icon at-icon-clock history-text"><text decode="{{true}}">{'&nbsp;'+this.state.hisTitle[1]}</text></View>
+                  <View className="at-icon at-icon-clock history-text"><text decode="{{true}}">{'&nbsp;'+this.state.hisTitle[2]}</text></View> 
+                </View>
+              </SwiperItem>
+              <SwiperItem >
+                <View className='wallpaper-swiper' style={{backgroundImage:'url('+wallpaperStore.wallpaperUrl+')'}} onClick={this.toWallpaper}></View>
+                <View className="wallpaper-title">每日壁纸</View>
+              </SwiperItem>
+            </Swiper>
+          </View>
+          <View className="index-body">
+            <AtGrid
+          
+            data={
+              [
+                {
+                  iconInfo:{
+                    prefixClass:'icon',
+                    size: 30,
+                    value:'chart',
+                    color:'#2ae542'
+                  },
+                  value: '商品历史价'
+                },
+                {
+                  iconInfo:{
+                    prefixClass:'icon',
+                    size: 30,
+                    value:'movie',
+                    color:'#e5342a'
+                  },
+                  value: '电影评分'
+                },
+                {
+                  iconInfo:{
+                    size: 30,
+                    value:'calendar',
+                    color:'#2a85e5'
+                  },
+                  value: '老黄历'
+                },{
+                  iconInfo:{
+                    prefixClass:'icon',
+                    size: 30,
+                    value:'exchange-rate',
+                    color:'#e52a42'
+                  },
+                  value: '汇率'
+                },{
+                  iconInfo:{
+                    prefixClass:'icon',
+                    size: 30,
+                    value:'search',
+                    color:'#e58a2a'
+                  },
+                  value: '作首诗'
+                },{
+                  iconInfo:{
+                    prefixClass:'icon',
+                    size: 30,
+                    value:'more',
+                    color:'#333333'
+                  },
+                  value: '更多功能\n敬请期待'
+                }
+              ]
+            } 
+            onClick={this.toToolPage}
+            />
+          </View>
         </View>
-        <View className="index-body">
-          <AtGrid
-         
-          data={
-            [
-              {
-                iconInfo:{
-                  prefixClass:'icon',
-                  size: 30,
-                  value:'chart',
-                  color:'#0e78af'
-                },
-                value: '商品历史\n价格查询'
-              },
-              {
-                iconInfo:{
-                  prefixClass:'icon',
-                  size: 30,
-                  value:'movie',
-                  color:'#e5342a'
-                },
-                value: '查电影'
-              },
-              {
-                iconInfo:{
-                  size: 30,
-                  value:'calendar',
-                  color:'#69b8f0'
-                },
-                value: '老黄历'
-              },{
-                iconInfo:{
-                  prefixClass:'icon',
-                  size: 30,
-                  value:'exchange-rate',
-                  color:'#a71e32'
-                },
-                value: '汇率'
-              },{
-                iconInfo:{
-                  prefixClass:'icon',
-                  size: 30,
-                  value:'search',
-                  color:'#EE7000'
-                },
-                value: '作首诗'
-              },{
-                iconInfo:{
-                  prefixClass:'icon',
-                  size: 30,
-                  value:'more',
-                  color:'#333333'
-                },
-                value: '更多功能\n敬请期待'
-              }
-            ]
-          } 
-          onClick={this.toToolPage}
-          />
-        </View>
+       
         <AtToast isOpened={this.state.toastOpen}
                 onClose ={this.ontoastClose}
                 duration={1000}

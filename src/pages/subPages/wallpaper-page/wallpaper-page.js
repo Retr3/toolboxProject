@@ -1,8 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text,Navigator } from '@tarojs/components'
-import { AtToast,AtButton, AtIcon,AtNavBar} from 'taro-ui'
+import { View } from '@tarojs/components'
+import { AtToast,AtButton } from 'taro-ui'
 import './wallpaper-page.scss'
 import { observer, inject } from '@tarojs/mobx'
+import NavBar from '../../../components/NavBar'
 /**
  * 壁纸推荐功能页
  */
@@ -64,31 +65,22 @@ class Wallpaper extends Component{
             imageUrl:wallpaperStore.wallpaperUrl
         }
     }
-    goBackPre=()=>{
-        Taro.navigateBack();
-    }
+
     render(){
         const { wallpaperStore,navStore } = this.props;
         const enddate = wallpaperStore.nowDate.substring(0,4)+'-'
                 +wallpaperStore.nowDate.substring(4,6)+'-'
                 +wallpaperStore.nowDate.substring(6,wallpaperStore.nowDate.length)
+        const navOption ={
+            classtyle:"",
+            title:'',
+            color:'#fff',
+            statusHeight:navStore.statusHeight,
+            navHeight:navStore.navHeight
+        }
         return (<View className="container">
-                   
+                    <NavBar param={navOption}></NavBar>
                     <View className="wallpaper-style" style={{backgroundImage: 'url('+wallpaperStore.wallpaperUrl+')'}}>
-                        <View className="wallpaper-bar">
-                            <View className="bar-transparent"  style={`height:${navStore.statusHeight}px;width:100%`}></View>
-                            <View  style={`height:${70}px`}>
-                                <AtNavBar
-                                    className="bar-transparent"
-                                    onClickLeftIcon={this.goBackPre}
-                                    color='#fff'
-                                    title=''
-                                    leftText=''
-                                    leftIconType='chevron-left'
-                                />
-                            </View>
-                        </View>
-                        
                         <View className="wallpaperMsg">
                             <View className="Msg-style">
                                 {wallpaperStore.wallpaperMsg}

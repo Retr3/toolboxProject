@@ -17,8 +17,10 @@ import './assets/font/iconfont.css'
 // if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5')  {
 //   require('nerv-devtools')
 // }
+//小程序云环境配置
 wx.cloud.init({
-  env:'zxytest-37pbw',
+  //env:'zxytest-37pbw'
+  env:'z-prod-env-5kd1i',
   traceUser: true
 })
 const store = {

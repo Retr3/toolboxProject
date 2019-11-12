@@ -1,8 +1,8 @@
 import { Component } from '@tarojs/taro'
 import { View, Image} from '@tarojs/components'
-import { AtNavBar } from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
-
+import {otherImgUrl} from '../../../untils/untils'
+import NavBar from '../../../components/NavBar'
 import './about-page.scss'
 
 @inject('navStore')
@@ -32,32 +32,24 @@ class About extends Component{
               }
         ]
     }
-    goBackPre=()=>{
-        Taro.navigateBack();
-    }
     render(){
         const { navStore } = this.props; 
+        const navOption ={
+            classtyle:"bar-personal",
+            navstyle:"bar-transparentwhite",
+            title:'关于',
+            color:'#fff',
+            statusHeight:navStore.statusHeight,
+            navHeight:navStore.navHeight
+        }
         return (<View className='container'>
-                    <View className="bar-personal" style={'width:100vw'}>
-                        <View className="bar-transparent"  style={`height:${navStore.statusHeight}px;width:100%`}></View>
-                        <View  style={`height:${navStore.navHeight}px`}>
-                            <AtNavBar
-                                className="bar-transparent"
-                                onClickLeftIcon={this.goBackPre}
-                                color='#fff'
-                                title='关于'
-                                leftText=''
-                                leftIconType='chevron-left'
-                            />
-                        </View>
-                    </View>
-                    
-                    <View className='banner'>
-                        <Image src="https://7a78-zxytest-37pbw-1259522293.tcb.qcloud.la/other_img/about-bg7.jpg" />
+                    <NavBar param={navOption}></NavBar>
+                    <View className='banner' style={`margin-top:${navStore.navHeight+navStore.statusHeight+10}px`}>
+                        <Image src={otherImgUrl+"about-bg7.jpg"} />
                     </View>
                     <View className='section'>
-                        {this.state.myInfo.map(item=>{
-                            return <View>
+                        {this.state.myInfo.map((item,index)=>{
+                            return <View key={item+index}>
                                 <text>{item.label}：</text>
                                 <text>{item.value}</text>
                             </View>
@@ -65,7 +57,7 @@ class About extends Component{
                     </View>
 
                     <View className='section'>
-                        <text>  基于Taro的小程序系统，仅供学习和参考。源码在github上开源，觉得不错的可以给个star鼓励下(*^▽^*)</text>
+                        <text>  基于Taro的小程序系统，数据来源于网络，仅供学习和参考。源码在github上开源，觉得不错的可以给个star鼓励下(〃'▽'〃)</text>
                     </View>
                 </View>)
     }

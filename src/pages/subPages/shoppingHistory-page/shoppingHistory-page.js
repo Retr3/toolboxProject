@@ -1,9 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button, Text } from '@tarojs/components'
-import { AtCurtain, AtSearchBar,AtToast, AtModal, AtButton,AtNavBar} from 'taro-ui'
+import { AtCurtain, AtSearchBar,AtToast, AtModal,AtModalHeader,AtModalContent,AtModalAction, AtButton} from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
 import Chart from 'taro-echarts'
-
+import NavBar from '../../../components/NavBar'
 
 import './shoppingHistory-page.scss'
 //电商地址列表头
@@ -41,7 +41,8 @@ class History extends Component{
           minMonth:2,//最少展示2个月的信息
           xBlockNum:6,//x轴被分割几块
           inputIsNull:false,//输入校验提示
-          copyModel:false//剪贴板检测模态框
+          copyModel:false,//剪贴板检测模态框
+          errorAlert:false
       }
     componentDidMount () {
 
@@ -97,16 +98,14 @@ class History extends Component{
     searchHistory=()=>{
         let link = this.state.goodsLink;
         let that = this;
-        console.log(link);
         wx.cloud.callFunction({
             name:'getGoodsHistory',
             data:{
                 goodsLink:link
             },
             success:res=>{
-                console.log("suc");
                 let goodsInfo = JSON.parse(res.result);
-                if(goodsInfo.ok === 1){
+                if(goodsInfo && goodsInfo.ok === 1){
                     this.setState({
                         hasGoodsInfo:true,
                         minPrice:goodsInfo.zdprice,
@@ -125,6 +124,9 @@ class History extends Component{
             },
             fail: err => {
                 // handle error
+                this.setState({
+                    errorAlert:true
+                })
                 console.log(err);
             },
             complete: () => {
@@ -150,12 +152,10 @@ class History extends Component{
                 }
                 newchartsData[j + 1][0] = key;
         }
-        console.log('done');
         return newchartsData;
     }
     //图表数据
-    showChart = ()=>{
-        console.log('start'); 
+    showChart = ()=>{ 
         let that = this;
         let data= [];
         let chartsInfo = this.chartsInfo(this.state.chartsData);
@@ -207,7 +207,6 @@ class History extends Component{
         // var labelWidth = $('.heightestPrice').width() + 15;
         // var labelHeight = $('.heightestPrice').height() + 10;
  
-        // console.log("labelWidth:"+labelWidth+",labelHeight:"+labelHeight);
 
         //x轴显示的间隔
         xInterval = (xMax - xMin) / this.state.xBlockNum;
@@ -435,47 +434,40 @@ class History extends Component{
         var day = new Date(parseInt(time)).getDate();
         return [year,mouth,day];
     }
-    noGoodsAlertConfirm=()=>{
+    noGoodsAlertConfirm = ()=>{
         this.setState({
             alertNoGoods:false
-        },()=>{
-            console.log(this.state.alertNoGoods);
         })
     }
     //关闭动作
-    inputNull=()=>{
+    inputNull = ()=>{
         this.setState({
             inputIsNull:false
+        })
+    }
+    errorToast = ()=>{
+        this.setState({
+            errorAlert:false
         })
     }
     onClipboardClose=()=>{
         this.setState({
             copyModel:false,
             goodsLink:''
-        },()=>{
-            console.log(this.state.goodsLink+"aaa");
         })
-    }
-    goBackPre=()=>{
-        Taro.navigateBack();
     }
     render(){
         const { navStore } = this.props;
+        const navOption ={
+            classtyle:"bar-basecolor",
+            title:'商品历史价',
+            color:'#333',
+            statusHeight:navStore.statusHeight,
+            navHeight:navStore.navHeight
+          }
         return (<View className="container">
-                    <View className="bar-basecolor" style={'width:100vw'}>
-                        <View className="bar-transparent"  style={`height:${navStore.statusHeight}px;width:100%`}></View>
-                        <View  style={`height:${navStore.navHeight}px`}>
-                            <AtNavBar
-                                className="bar-transparent"
-                                onClickLeftIcon={this.goBackPre}
-                                color='#fff'
-                                title='商品历史价'
-                                leftText=''
-                                leftIconType='chevron-left'
-                            />
-                        </View>
-                    </View>
-                    <View className="search-body">
+                    <NavBar param={navOption}></NavBar>
+                    <View className="search-body" style={`margin-top:${navStore.navHeight+navStore.statusHeight}px`}>
                         <AtSearchBar
                             name='goodsLinkName'
                             title=''
@@ -531,16 +523,18 @@ class History extends Component{
                             </View>        
                         }
                       
-                        <AtModal
-                            isOpened={this.state.alertNoGoods}
-                            title='没有找到商品'
-                            confirmText='确认'
-                            
-                            onConfirm={this.noGoodsAlertConfirm}
-                            content='啊哦,该商品暂时没有收录哦'
-                        />
+
+                        <AtModal isOpened={this.state.alertNoGoods} closeOnClickOverlay={true}>
+                            <AtModalHeader>没有找到商品</AtModalHeader>
+                            <AtModalContent className="modal-style">
+                                <View>啊哦,该商品暂时没有收录哦</View>
+                            </AtModalContent>
+                            <AtModalAction> 
+                                <Button onClick={this.noGoodsAlertConfirm}>确认</Button> 
+                            </AtModalAction>
+                        </AtModal>
                         <AtCurtain
-                            closeBtnPosition="bottom"
+                            closeBtnPosition="top"
                             isOpened={this.state.copyModel}
                             onClose={this.onClipboardClose}
                         >
@@ -554,6 +548,8 @@ class History extends Component{
                         </AtCurtain>
                         
                         <AtToast isOpened={this.state.inputIsNull} text="输入不能为空哦" icon="alert-circle" onClose={this.inputNull} duration={800}></AtToast>
+                        <AtToast isOpened={this.state.errorAlert} text="啊哦，好像出错了" icon="alert-circle" onClose={this.errorToast} duration={1100}></AtToast>
+                        
                 </View>)
     }
 }

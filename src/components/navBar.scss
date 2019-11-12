@@ -1,0 +1,19 @@
+.bar-fix{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 800;    
+}
+.bar-personal{
+    background-image: linear-gradient(160deg, #00ffd5 20%,#008cff 80%);
+}
+.bar-basecolor{
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 50%,#a8a8a8 100%);
+}
+.bar-index{
+    background:#f8f8f8;
+    color:#333;
+    font-weight:bold;
+    font-size:1rem;
+}

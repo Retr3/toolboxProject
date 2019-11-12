@@ -3,89 +3,102 @@
     height: 100vh;
     background: #f8f8f8;
     background-size: 100% 100%;
+    overflow: auto;
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 50%,#a8a8a8 100%);
 }
 .calendar-head{
-    color:#ffffff;
+    color:#333;
     display: flex;
     flex-flow: column;
     justify-content: flex-start;
     text-align: center;
-    height:43vh;
-    padding: 30rpx;
+    padding: 0 30rpx 0rpx 30rpx;
     .calendar-info{
         font-weight: 300;
-        font-size:1.2rem;
-        margin:20rpx;
+        font-size:1rem;
     }
     .calendar-date{
-        font-size: 6rem;
+        font-size: 3rem;
         font-weight: 700;
         color:#CC0000;
     }
 }
-    .calendar-baiji{
-        color:#3626ad;
-        padding:10rpx;
-        margin:20rpx;
-        //border:4rpx solid #cccccc;
-        display: flex;
-        flex-flow: column;
-        justify-content: space-around;
-        .baiji-info{
-            margin:10rpx;
-            font-weight:500;
-        }
-    }
-.calendar-content{
-    padding:30rpx 10rpx;
-    .calendar-icon{
-        justify-content: center;
-        align-items: center;
+.calendar-baiji{
+    color:#333;
+    font-size:1rem;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    .baiji-info{
+        margin:10rpx;
+        font-weight:500;
     }
 }
+.calendar-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex:1;
+    min-height:20vh;
+    border-right: 4rpx solid #CCC;
+}
+.calendar-sub{
+    min-height:20vh;
+    flex:3;
+}
+.section{
+    min-height:20vh;
+    background-color: #fff;
+    margin: 20rpx;
+    border-radius: 10rpx;
+    padding: 20rpx;
+    box-shadow: 2px 2px 2px 1px #ddd;
+    font-size: 28rpx;
+    line-height: 2em;
+    .section-row{
+        display: flex;
+    }
+}
+
 .calendar-subinfo{
-    height:20vh;
     align-content: flex-start;
     .calendar-text{
         text-align: center;
-        color:#ffffff;
+        color:#333;
         padding:10rpx 0 10rpx 0;
         line-height: 1rem;
         font-size:.9rem;
+        .yistyle{
+            color:#CC0000
+        }
+    }
+}
+.foot-section{
+    min-height:6vh;
+    background-color: #fff;
+    margin: 20rpx;
+    border-radius: 10rpx;
+    padding: 20rpx;
+    box-shadow: 2px 2px 2px 1px #ddd;
+    font-size: 28rpx;
+    line-height: 2em;
+    .foot-row{
+        display: flex;
+    }
+}
+.foot-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height:5vh;
+    flex:1;
+    font-size:1rem;
+    border-right: 4rpx solid #CCC;
+    .ji{
+        color:#CC0000;
     }
 }
 .foot-info{
-    height:20vh;
-    align-content: flex-start;
-    .foot-title{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding:15rpx;
-        font-size:1.5rem;
-        font-weight: bold;
-        color:#CC0000;
-    }
-    .foot-title2{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding:15rpx;
-        font-size:1.5rem;
-        font-weight: bold;
-        color:#333333;
-    }
-    .foot-text{
-        text-align: center;
-        color:#ffffff;
-        line-height: 1rem;
-        padding:10rpx 0 10rpx 0;
-        font-size:1rem;
-    }
-}
-.calendar-border-left{
-    border-left: 4rpx solid #CCC
-}
-.calendar-border-right{
-    border-right: 4rpx solid #CCC
+    min-height:5vh;
+    flex:3;
 }

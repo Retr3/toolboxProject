@@ -3,13 +3,16 @@ import { View, Button , Image} from '@tarojs/components'
 import { AtRate, AtToast, AtIcon, AtButton} from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
 import {getCollectionInfo} from '../../../untils/movie-until'
+import NavBar from '../../../components/NavBar'
 import './movie-detail.scss'
 const db = wx.cloud.database();
 @inject('movieStore')
+@inject('navStore')
 @observer
 class MovieDetail extends Component{
     config = {
-        navigationBarTitleText: '影片详情'
+        navigationBarTitleText: '影片详情',
+        "navigationStyle": "custom"
     }
     state={
         hisStar:false,//是否收藏过
@@ -233,9 +236,17 @@ class MovieDetail extends Component{
         })
     }
     render(){
-        const { movieStore } = this.props;
+        const { movieStore,navStore } = this.props;
+        const navOption ={
+            classtyle:"bar-basecolor",
+            title:'影片详情',
+            color:'#333',
+            statusHeight:navStore.statusHeight,
+            navHeight:navStore.navHeight
+          }
         return (<View className="container">
-                    <View className="detail-head">
+                    <NavBar param={navOption}></NavBar>
+                    <View className="detail-head" style={`padding-top:${navStore.navHeight+navStore.statusHeight+30}px`}>
                         
                             <Image className="movie-cover" src={movieStore.movieInfo.image}></Image>
                             <View className="movie-subinfo">

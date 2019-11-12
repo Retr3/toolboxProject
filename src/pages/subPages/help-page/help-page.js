@@ -1,7 +1,8 @@
 import { Component } from '@tarojs/taro'
 import { View,Image,Text} from '@tarojs/components'
-import { AtNavBar } from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
+import {otherImgUrl} from '../../../untils/untils'
+import NavBar from '../../../components/NavBar'
 import './help-page.scss'
 
 @inject('navStore')
@@ -20,30 +21,23 @@ class Help extends Component{
             "可以通过客服反馈进行留言或者发邮件至1915448000@qq.com进行反馈"
         ],
         imgUrl:[
-            "https://7a78-zxytest-37pbw-1259522293.tcb.qcloud.la/other_img/help-1.png",
-            "https://7a78-zxytest-37pbw-1259522293.tcb.qcloud.la/other_img/help-2.png"
+            otherImgUrl+"help-1.png",
+            otherImgUrl+"help-2.png",
         ]
-    }
-    goBackPre=()=>{
-        Taro.navigateBack();
     }
     render(){
         const { navStore } = this.props; 
+        const navOption ={
+            classtyle:"bar-personal",
+            navstyle:"bar-transparentwhite",
+            title:'帮助',
+            color:'#fff',
+            statusHeight:navStore.statusHeight,
+            navHeight:navStore.navHeight
+        }
         return (<View class='container'>
-                   <View className="bar-personal" style={'width:100vw'}>
-                        <View className="bar-transparent"  style={`height:${navStore.statusHeight}px;width:100%`}></View>
-                        <View  style={`height:${navStore.navHeight}px`}>
-                            <AtNavBar
-                                className="bar-transparent"
-                                onClickLeftIcon={this.goBackPre}
-                                color='#fff'
-                                title='帮助'
-                                leftText=''
-                                leftIconType='chevron-left'
-                            />
-                        </View>
-                    </View>
-                    <View className='section'>
+                    <NavBar param={navOption}></NavBar>
+                    <View className='section' style={`margin-top:${navStore.navHeight+navStore.statusHeight+10}px`}>
                         <View className="question">Q：{this.state.question[0]}</View>
                         <View className="answer">A：{this.state.answer[0]}</View>
                         <View className="answer"><Text decode="{{true}}">{this.state.answer[1]}</Text></View>

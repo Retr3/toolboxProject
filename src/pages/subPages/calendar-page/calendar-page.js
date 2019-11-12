@@ -1,14 +1,19 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button, Text, Image} from '@tarojs/components'
-import { AtIcon, AtSwipeAction, AtToast} from 'taro-ui'
-import {calendarBgUrl} from '../../../untils/untils'
+import { View, Text } from '@tarojs/components'
+import { AtIcon} from 'taro-ui'
 import {dateFormat} from '../../../untils/tool'
+import { observer, inject } from '@tarojs/mobx'
+import NavBar from '../../../components/NavBar'
 
 import './calendar-page.scss'
 const db = wx.cloud.database();
+
+@inject('navStore')
+@observer
 class Calendar extends Component{
     config = {
-        navigationBarTitleText: '黄历'
+        navigationBarTitleText: '黄历',
+        "navigationStyle": "custom"
       }
     state={
         calendarInfo:'',
@@ -45,9 +50,92 @@ class Calendar extends Component{
         }
     }
     render(){
-        return (<View className="container" style={{backgroundImage:'url('+calendarBgUrl+')'}}>
+        const { navStore } = this.props;
+        const navOption ={
+            classtyle:"",
+            navstyle:'',
+            title:'',
+            color:'#333',
+            statusHeight:navStore.statusHeight,
+            navHeight:navStore.navHeight
+        }
+        return (<View className="container">
+                    <NavBar param={navOption}></NavBar>
                     {this.state.calendarInfo?
-                    <View>
+                    <View style={`margin-top:${navStore.navHeight+navStore.statusHeight}px`}>
+                        <View className="calendar-head">
+                            <View className="calendar-info">
+                                <text decode="{{true}}">{this.state.calendarInfo.yangli+"&nbsp;&nbsp;星期" + "日一二三四五六".charAt(new Date().getDay())}</text>
+                            </View>
+                            <View className="calendar-date">{(new Date().getDate())}</View>
+                            <View className="calendar-info"><text decode="{{true}}">{"农历&nbsp;&nbsp;"+this.state.calendarInfo.yinli}</text></View>
+                            <View className="calendar-baiji">
+                                <View className="baiji-info"><text decode="{{true}}">{'五行:&nbsp;'+this.state.calendarInfo.wuxing}</text></View>
+                                <View className="baiji-info"><text decode="{{true}}">{'彭祖百忌:&nbsp;'+this.state.calendarInfo.baiji}</text></View>
+                            </View>
+                        </View>
+                        <View className="section">
+                            <View className="section-row">
+                                <View className="calendar-icon">
+                                    <AtIcon prefixClass='icon' value='yi' size='40' color='#CC0000'></AtIcon>
+                                </View>
+                                <View className="calendar-sub">
+                                    <View className="at-row at-row--wrap calendar-subinfo">
+                                        {this.state.yiList.length>0?this.state.yiList.map(item=>
+                                            <View key={item} className='at-col at-col-4 calendar-text'><Text className="yistyle">{item}</Text></View>
+                                        ):''}
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+                        <View className="section">
+                            <View className="section-row">
+                                <View className="calendar-icon">
+                                <AtIcon prefixClass='icon' value='ji' size='40' color='#333333'></AtIcon>
+                                </View>
+                                <View className="calendar-sub">
+                                    <View className="at-row at-row--wrap calendar-subinfo">
+                                        {this.state.jiList.length>0?this.state.jiList.map((item,index)=>
+                                            <View key={item} className='at-col at-col-4 calendar-text'>{item}</View>
+                                        ):''}
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+                        <View className="foot-section">
+                            <View className="foot-row">
+                                <View className="foot-text">
+                                    <Text className="ji">吉神宜趋</Text>
+                                </View>
+                                <View className="foot-info">
+                                    <View className="at-row at-row--wrap calendar-subinfo">
+                                        {this.state.jishen.length>0?this.state.jishen.map(item=>{
+                                            return <View key={item} className='at-col at-col-4 calendar-text'><Text className="yistyle">{item}</Text></View>
+                                        }):''}
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+                        <View className="foot-section">
+                            <View className="foot-row">
+                                <View className="foot-text">
+                                    <Text>凶煞宜忌</Text>
+                                </View>
+                                <View className="foot-info">
+                                    <View className="at-row at-row--wrap calendar-subinfo">
+                                        {this.state.xiongshen.length>0?this.state.xiongshen.map(item=>{
+                                            return <View key={item} className='at-col at-col-4 calendar-text'>{item}</View>
+                                        }):''}
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+                        
+                    </View>
+                    
+                    :<View></View>}
+                    {/* {this.state.calendarInfo?
+                    <View style={`margin-top:${navStore.navHeight+navStore.statusHeight}px`}>
                         <View className="calendar-head">
                             <View className="calendar-info">
                                 <text decode="{{true}}">{this.state.calendarInfo.yangli+"&nbsp;&nbsp;星期" + "日一二三四五六".charAt(new Date().getDay())}</text>
@@ -98,7 +186,7 @@ class Calendar extends Component{
                                 </View>
                             </View>
                         </View>
-                    </View>:<View></View>}
+                    </View>:<View></View>} */}
                 </View>)
     }
 }

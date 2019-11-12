@@ -7,12 +7,12 @@
 $heights:70vh;
 .test-h{
     height:$heights;
-    margin:30rpx;
+    margin:0 30rpx 30rpx 30rpx;
 }
 .history-swiper{
     border-radius: 3%;
     height:$heights - 6;
-    margin:20rpx;
+    margin:0 20rpx 20rpx 20rpx;
     background-size: 100% 100%;
 }
 .history-bg{
@@ -23,12 +23,12 @@ $heights:70vh;
     bottom:0;
     border-radius: 3%;
     height:$heights - 6;
-    margin:20rpx;
+    margin:0 20rpx 20rpx 20rpx;
     background:rgba(1, 1, 1, 0.5);
 }
 .history-title{
     position: absolute;
-    top: 5%;
+    top: 1%;
     left: 5%;
     width:100%;
     font-weight:600;
@@ -65,12 +65,12 @@ $heights:70vh;
 .wallpaper-swiper{
     border-radius: 3%;
     height:$heights - 6;
-    margin:20rpx;
+    margin:0 20rpx 20rpx 20rpx;
     background-size: cover;
 }
 .wallpaper-title{
     position: absolute;
-    top: 5%;
+    top: 1%;
     left: 5%;
     width:100%;
     font-weight:600;
@@ -86,7 +86,7 @@ $heights:70vh;
     bottom:0;
     border-radius: 3%;
     height:$heights - 6;
-    margin:20rpx;
+    margin:0 20rpx 20rpx 20rpx;
     background:rgba(1, 1, 1, 0.3);
 }
 .weather-local{
@@ -96,7 +96,7 @@ $heights:70vh;
     width:90%;
     font-weight:normal;
     font-size: 1rem;
-    margin:20rpx;
+    margin:0 20rpx 20rpx 20rpx;
     color:#fff
 }
 .weather-tem{
@@ -111,12 +111,13 @@ $heights:70vh;
 }
 .weather-info{
     position: absolute;
-    bottom: 10%;
+    bottom: 12%;
     left: 25%;
     width:60%;
     height:10vh;
     font-weight:200;
-    font-size: .8rem;
+    font-size: .9rem;
+    line-height: .9rem;
     margin-left:20rpx;
     color:#fff;
     display:flex;
@@ -124,7 +125,8 @@ $heights:70vh;
     justify-content:flex-end;
 }
 .wea-update{
-    font-size: .4rem;
+    margin:10rpx 0;
+    font-size: .8rem;
 }
 .weather-icon{
     position: absolute;
@@ -137,7 +139,8 @@ $heights:70vh;
     background-size: 100% 100%;
 }
 .weather-temInfo{
-    font-size: .8rem;
+    margin:10rpx 0;
+    font-size: .9rem;
 }
 .index-body{
     margin: 20rpx 0 20rpx;
