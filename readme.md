@@ -82,7 +82,7 @@ v 1.1
 3. 运行 npm run dev:weapp / npm run build:weapp  
 4. 微信开发者工具打开后关闭安全域名的校验（设置 --> 项目设置 --> 不校验合法域名）
 <br/>
-
+`注:untils.js中的接口配置及文件路径需要根据自身情况自行配置`
 <hr/>
 
 小程序开发周期不长，代码还在优化，有问题可以随时联系我进行反馈或[issue](https://github.com/Retr3/toolboxProject/issues)，如果代码对您有帮助就给个star鼓励下吧
