@@ -19,15 +19,21 @@ class Personal extends Component{
         let userInfo = e.detail.userInfo;
         wx.cloud.callFunction({
             name:'login',
-            complete:res=>{
+            success:res=>{
               console.log(res.result);
-                userInfo.openid = res.result.openid
-                this.setState({
-                    userInfo
-                },()=>{
-                    Taro.setStorageSync("userInfo",userInfo)
-                })
-
+                if(userInfo){
+                  userInfo.openid = res.result.openid
+                  this.setState({
+                      userInfo
+                  },()=>{
+                      Taro.setStorageSync("userInfo",userInfo)
+                  })
+                }else{
+                  console.log("拒绝登录");
+                }
+            },
+            fail:res=>{
+              console.log("登录失败");
             }
 
         })

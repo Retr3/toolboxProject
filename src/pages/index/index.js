@@ -452,6 +452,7 @@ class Index extends Component {
         name:'login',
         success:res=>{
           console.log(res.result);
+          if(userInfo){
             userInfo.openid = res.result.openid
             this.setState({
                 userInfo
@@ -478,7 +479,7 @@ class Index extends Component {
                   })
                 })
             })
-
+          }
         }
 
     })
