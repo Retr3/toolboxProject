@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/mobx'
 import '@tarojs/async-await'
-import Index from './pages/index'
+import Index from './pages/index/index'
 
 import navStore from './store/navStore'
 import wallpaperStore from './store/wallpaperStore'
@@ -115,13 +115,13 @@ class App extends Component {
       "list": [{
           "pagePath": "pages/index/index",
           "text": "首页",
-          "iconPath": "images/home.png",
-          "selectedIconPath": "images/home-active.png"
+          "iconPath": "assets/images/home.png",
+          "selectedIconPath": "assets/images/home-active.png"
       }, {
           "pagePath": "pages/personal/personal",
           "text": "我的",
-          "iconPath": "images/user.png",
-          "selectedIconPath": "images/user-active.png"
+          "iconPath": "assets/images/user.png",
+          "selectedIconPath": "assets/images/user-active.png"
       }]
     },
     "permission": {

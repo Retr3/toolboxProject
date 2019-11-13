@@ -3,7 +3,7 @@ import { View, Button, Text,Navigator } from '@tarojs/components'
 import { AtButton,AtList, AtListItem} from 'taro-ui'
 import { observer, inject } from '@tarojs/mobx'
 import {otherImgUrl} from '../../untils/untils'
-import unloginPng from '../../images/unlogin.png'
+import unloginPng from '../../assets/images/unlogin.png'
 import './personal.scss'
 @inject('navStore')
 @observer
