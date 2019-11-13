@@ -4,7 +4,7 @@
 项目使用到了echarts tooptip的功能，目前eahcrts正式版暂不支持，使用可以参考[echarts在小程序中支持图表tooptip功能](https://github.com/Retr3/toolboxProject/blob/dev/about.md)
 <br/>
 `扫描体验`：  
-<img src=''></img>
+<img src='https://github.com/Retr3/toolboxProject/blob/dev/codeImg.png'></img>
 <br/>
 
 ### 实现的功能  
