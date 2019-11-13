@@ -356,8 +356,7 @@ class Index extends Component {
                   cloudPath:'wallpaper_img/'+this.state.newImgName,
                   filePath: path,
                   config:{
-                      //env:'zxytest-37pbw'
-                      env:'z-prod-env-5kd1i'
+                      env:'你的环境变量'
                   },
                   success:res=>{
                       console.log("上传成功:"+res.fileID);

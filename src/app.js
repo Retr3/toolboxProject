@@ -19,8 +19,7 @@ import './assets/font/iconfont.css'
 // }
 //小程序云环境配置
 wx.cloud.init({
-  //env:'zxytest-37pbw'
-  env:'z-prod-env-5kd1i',
+  env:'你的环境变量',
   traceUser: true
 })
 const store = {
