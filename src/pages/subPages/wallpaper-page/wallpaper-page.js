@@ -30,7 +30,6 @@ class Wallpaper extends Component{
             url:wallpaperStore.wallpaperUrl,
             success:function(res){
               let path = res.tempFilePath;
-              console.log(path);
               Taro.saveImageToPhotosAlbum({
                 filePath: path,
                 success:saveres => {

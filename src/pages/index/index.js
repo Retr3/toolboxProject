@@ -7,15 +7,6 @@ import './index.scss'
 import {weatherApi} from '../../untils/weather-api'
 import { qqMapKey,weatherImgUrl,weatherIconUrl,codeJsonUrl } from '../../untils/untils';
 import {getNavHeight} from '../../untils/nav-height'
-// import '../../assets/icon/bingbao.png'
-// import '../../assets/icon/lei.png'
-// import '../../assets/icon/qing.png'
-// import '../../assets/icon/shachen.png'
-// import '../../assets/icon/wu.png'
-// import '../../assets/icon/xue.png'
-// import '../../assets/icon/yin.png'
-// import '../../assets/icon/yu.png'
-// import '../../assets/icon/yun.png'
 
 const QQMapWX = require('../../untils/qqmap-wx-jssdk.js');
 
@@ -110,7 +101,6 @@ class Index extends Component {
                   weatherApi(newCityId,cityflag).then(res=>{
                     if(Array.isArray(res.data)){
                       let result = res.data[0];
-                      console.log(result);
                       weatherStore.getWeatherInfo({...result,municipalName});
                     }else{
                       let newUpdate = res.date+" "+res.update_time;
@@ -318,7 +308,6 @@ class Index extends Component {
           num:2
       },
       success:res=>{
-            console.log("suc");
             let wallpaperInfo = res.result;
             if(!wallpaperInfo.code){
                 this.setState({
@@ -464,7 +453,6 @@ class Index extends Component {
                   Taro.navigateTo({
                     url: '../subPages/movie-page/movie-page',
                     success: function(res) {
-                        console.log(res);
                         that.setState({
                           loginSuc:false
                         })

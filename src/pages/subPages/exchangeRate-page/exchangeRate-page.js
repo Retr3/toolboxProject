@@ -204,8 +204,6 @@ class exchangeRate extends Component{
         secondPjname,
         secondBrRate,
         secondValue
-      },()=>{
-        console.log(this.state);
       })
     }
     //转换
@@ -261,7 +259,6 @@ class exchangeRate extends Component{
     //选择
     onSelectChange = e =>{
       let name = selectorList[parseInt(e.detail.value)+1];
-      console.log(parseInt(e.detail.value)+1);
       this.setState({
         pjname: currencyList[name],
         name

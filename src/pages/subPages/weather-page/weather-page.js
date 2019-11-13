@@ -43,7 +43,6 @@ class Weather extends Component{
             })
         }
         divSevenDays(cityid).then(res=>{
-            console.log(res.data);
             let data = res.data;
             this.setState({
                 air_tips:data[0].air_tips,

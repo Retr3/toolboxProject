@@ -39,8 +39,6 @@ class Calendar extends Component{
                 jiList:res.data[0].ji.split(' ').splice(0,15),
                 jishen:res.data[0].jishen.split(' '),
                 xiongshen:res.data[0].xiongshen.split(' ')
-            },()=>{
-                console.log(this.state);
             })
         })
     }

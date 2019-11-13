@@ -35,13 +35,11 @@ class MovieDetail extends Component{
         this.isCollection();
         //判断历史收藏
         this.getCollectionHistory();
-        console.log(movieStore.movieInfo)
     }
     componentDidMount () { 
         //小程序获取dom宽高方法
         let that = this;
         this.refDom.boundingClientRect(function (rect) {
-            console.log(rect.height/20)
             if((rect.height/20)>3){
                 that.setState({
                     isLong:true,
@@ -79,8 +77,6 @@ class MovieDetail extends Component{
                     that.setState({
                         isStar:true,
                         now_id:res.data[0]._id
-                    },()=>{
-                        console.log(that.state)
                     })
                 }
             })
@@ -191,7 +187,6 @@ class MovieDetail extends Component{
                             isStar:false
                         },()=>{
                             that.setBriefStar();
-                            console.log(this.state)
                         })
                     },
                     fail:err=>{

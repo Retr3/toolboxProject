@@ -1,7 +1,7 @@
 # 基于Taro的工具箱小程序  
 
 数据全部来自于网络,一部分数据APi是网上抓取,一部分使用的是网上免费的API接口  
-项目使用到了echarts tooptip的功能，目前eahcrts正式版暂不支持，使用可以参考[echarts在小程序中支持图表tooptip功能](https://github.com/Retr3/toolboxProject/blob/dev/about.md)
+项目使用到了echarts tooptip的功能，目前eahcrts正式版暂不支持，使用可以参考[echarts在小程序中支持图表tooptip功能](https://github.com/Retr3/toolboxProject/blob/master/about.md)
 <br/>
 `扫描体验`：  
 <img src=''></img>

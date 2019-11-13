@@ -28,7 +28,6 @@ class MovieCollection extends Component{
         
     }
     componentDidShow(){
-        console.log('show');
         this.getCollectionList(true);
     }
     componentDidMount () { 
@@ -40,12 +39,10 @@ class MovieCollection extends Component{
     }
     //下拉动作
     onReachBottom() {
-        console.log("bottom")
         if(this.state.more){
             this.setState({
                 nowPage: this.state.nowPage+1
             },()=>{
-              console.log( this.state.nowPage)
               this.getCollectionList();
             })
         }
@@ -71,7 +68,6 @@ class MovieCollection extends Component{
         Taro.showLoading({title:'加载中....'})
         let userinfoStorage = Taro.getStorageSync('userInfo');
         const offset = this.state.nowPage * this.state.PAGE;
-        console.log(offset)
         let ret = db.collection('collection_movie').where({
             _openid: userinfoStorage.openid,
             star_flag:0
@@ -155,8 +151,6 @@ class MovieCollection extends Component{
                     let newList = that.state.collectionList.filter(item=>item._id!=id);
                     that.setState({
                         collectionList:newList
-                    },()=>{
-                        console.log(that.state.collectionList);
                     })
                     that.setBriefStar();
                 })
