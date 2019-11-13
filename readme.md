@@ -1,7 +1,7 @@
 # 基于Taro的工具箱小程序  
 
 数据全部来自于网络,一部分数据APi是网上抓取,一部分使用的是网上免费的API接口  
-项目使用到了echarts tooptip的功能，目前eahcrts正式版暂不支持，使用可以参考[echarts在小程序中支持图表tooptip功能](https://github.com/Retr3/toolboxProject/blob/master/about.md)）
+项目使用到了echarts tooptip的功能，目前eahcrts正式版暂不支持，使用可以参考[echarts在小程序中支持图表tooptip功能](https://github.com/Retr3/toolboxProject/blob/dev/about.md)
 <br/>
 `扫描体验`：  
 <img src=''></img>
@@ -64,7 +64,7 @@ v 1.1
 │   ├── untils.js                   # 请求地址
 │   └── weather-api.js              # 天气功能工具函数
 ├── app.js                          # 小程序逻辑
-├── app.scss                        #小程序公共样式表
+├── app.scss                        # 小程序公共样式表
 └── index.html                      # 入口页面(H5)
 ```
 
@@ -85,4 +85,4 @@ v 1.1
 
 <hr/>
 
-`小程序开发周期不长，代码还在优化，有问题可以随时联系我进行反馈或`[issue](https://github.com/Retr3/toolboxProject/issues)`，如果代码对您有帮助就给个star鼓励下吧`
+小程序开发周期不长，代码还在优化，有问题可以随时联系我进行反馈或[issue](https://github.com/Retr3/toolboxProject/issues)，如果代码对您有帮助就给个star鼓励下吧
